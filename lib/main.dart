@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shedenk_mobile/LoginPage.dart';
+import 'package:shedenk_mobile/screens/LoginPage.dart';
 
 void main() => runApp(MyApp());
 
