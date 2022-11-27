@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shedenk_mobile/LoginPage.dart';
+import 'package:shedenk_mobile/screens/LoginPage.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -125,7 +125,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   // RegisterSubmit();
                   // addData();
                 },
-                child: Text("Daftar", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
+                child: Text(
+                  "Daftar",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),

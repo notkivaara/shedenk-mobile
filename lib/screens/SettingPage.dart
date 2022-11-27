@@ -91,7 +91,8 @@ class _SettingPageState extends State<SettingPage> {
                                 ),
                                 IconButton(
                                     onPressed: () {},
-                                    icon: Icon(Icons.keyboard_arrow_down), color: Color(0xFFD9D9D9)),
+                                    icon: Icon(Icons.keyboard_arrow_down),
+                                    color: Color(0xFFD9D9D9)),
                               ],
                             ),
                           ],

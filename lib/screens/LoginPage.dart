@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shedenk_mobile/RegiserPage.dart';
-import 'package:shedenk_mobile/SettingPage.dart';
+import 'package:shedenk_mobile/screens/RegiserPage.dart';
+import 'package:shedenk_mobile/screens/SettingPage.dart';
+import 'package:shedenk_mobile/screens/home/home_screen.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -115,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                   // style: ,
                   onPressed: () {
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => SettingPage()));
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
                   },
                   child: Text("Masuk",
                       style:
