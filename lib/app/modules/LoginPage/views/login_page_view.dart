@@ -1,21 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shedenk_mobile/RegiserPage.dart';
-import 'package:shedenk_mobile/SettingPage.dart';
+import 'package:shedenk_mobile/app/modules/ForgotPasswordPage/views/forgot_password_page_view.dart';
+import 'package:shedenk_mobile/app/modules/LoginPage/controllers/login_page_controller.dart';
+import 'package:shedenk_mobile/app/modules/ProfilePage/views/profile_page_view.dart';
+import '../../RegisterPage/views/register_page_view.dart';
+import 'package:get/get.dart';
 
-class LoginPage extends StatefulWidget {
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
+class LoginPage extends StatelessWidget {
+  final FieldLoginController = Get.put(LoginPageController());
 
-class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _KataSandiController = TextEditingController();
-
-  // LoginSubmit() async {
-  //   try{
-  //     _firebaseAuth.signInWithEmailAndPassword(email: _, password: password)
-  //   }
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,21 +24,16 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(10),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+        child: Container(
+          alignment: Alignment.center,
           child: ListView(
+            shrinkWrap: true,
             children: <Widget>[
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Image.asset(
-                  "img/logo.png",
-                  height: 100,
-                  width: 100,
-                ),
+              Image.asset(
+                "assets/img/logo.png",
+                height: 150,
               ),
               SizedBox(
                 height: 20,
@@ -60,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: 250,
                   height: 60,
                   child: TextField(
-                    // controller: ,
+                    controller: FieldLoginController.UsernameController,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
@@ -74,8 +61,8 @@ class _LoginPageState extends State<LoginPage> {
                   width: 250,
                   height: 60,
                   child: TextField(
-                    // controller: ,
-                    // obscureText: ,
+                    controller: FieldLoginController.PasswordController,
+                    obscureText: true,
                     decoration: InputDecoration(
                         suffixIcon: InkWell(
                           // onTap: ,
@@ -91,10 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(10),
                 child: GestureDetector(
                   onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => RegisterPage()));
+                    Get.to(ForgotPasswordPage());
                   },
                   child: Text(
                     "Lupa password?",
@@ -114,8 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: ElevatedButton(
                   // style: ,
                   onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => SettingPage()));
+                    Get.off(ProfilePage());
                   },
                   child: Text("Masuk",
                       style:
@@ -141,10 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RegisterPage()));
+                      Get.off(() => RegisterPage());
                     },
                     child: Text(
                       "Daftar",
