@@ -99,8 +99,12 @@ AppBar topNavBar() {
     ),
     actions: [
       Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Icon(Icons.shopping_cart_outlined, color: Colors.black),
+        padding: const EdgeInsets.fromLTRB(8.0, 0, 18.0, 0),
+        child: IconButton(
+          icon: Icon(Icons.shopping_cart_outlined),
+          color: Colors.black,
+          onPressed: () {},
+        ),
       ),
     ],
   );
