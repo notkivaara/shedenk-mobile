@@ -98,7 +98,7 @@ class LoginPage extends StatelessWidget {
                 child: ElevatedButton(
                   // style: ,
                   onPressed: () {
-                    Get.off(ProfilePage());
+                    Get.off(() => ProfilePage());
                   },
                   child: Text("Masuk",
                       style:

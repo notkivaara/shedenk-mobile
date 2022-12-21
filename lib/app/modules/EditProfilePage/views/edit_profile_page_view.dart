@@ -24,71 +24,49 @@ class EditProfilePage extends StatelessWidget {
           alignment: Alignment.center,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              shrinkWrap: true,
+            child: Column(
+              // shrinkWrap: true,
               children: <Widget>[
-                Container(
-                  color: Colors.amber,
-                  width: 100,
-                  child: SizedBox(
-                    height: 100,
-                  ),
+                
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  // controller:,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      labelText: "Username"),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  width: 250,
-                  height: 60,
-                  child: TextField(
-                    // controller:,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        labelText: "Username"),
-                  ),
+                TextField(
+                  // controller:,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      labelText: "Hobi"),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  width: 250,
-                  height: 60,
-                  child: TextField(
-                    // controller:,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        labelText: "Hobi"),
-                  ),
+                TextField(
+                  // controller:,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      labelText: "Email"),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  width: 250,
-                  height: 60,
-                  child: TextField(
-                    // controller:,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        labelText: "Email"),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  width: 250,
-                  height: 60,
-                  child: TextField(
-                    // controller: ,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        labelText: "Nomor Telepon"),
-                  ),
+                TextField(
+                  // controller: ,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      labelText: "Nomor Telepon"),
                 ),
                 SizedBox(
                   height: 10,
@@ -103,13 +81,10 @@ class EditProfilePage extends StatelessWidget {
                     child: Text("Simpan",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600)),
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: Size.fromHeight(40),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
                   ),
                 ),
               ],
