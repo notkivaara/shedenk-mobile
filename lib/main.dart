@@ -8,6 +8,7 @@ import 'package:shedenk_mobile/app/modules/ProfilePage/views/profile_page_view.d
 
 import 'app/modules/LoginPage/views/login_page_view.dart';
 
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
