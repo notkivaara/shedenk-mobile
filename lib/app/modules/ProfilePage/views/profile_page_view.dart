@@ -36,61 +36,53 @@ class _ProfilePageState extends State<ProfilePage> {
         child: ListView(
           children: <Widget>[
             SizedBox(
-              height: 60,
+              height: 100,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      GestureDetector(
-                        onTap: () => FocusScope.of(context).unfocus(),
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: 60,
-                              height: 60,
-                              // color: Colors.grey.withOpacity(0.3),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2,
-                                      style: BorderStyle.solid,
-                                      color: Colors.white),
-                                  borderRadius: BorderRadius.circular(40),
-                                  shape: BoxShape.rectangle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                          'https://tse4.mm.bing.net/th?id=OIP.pvIrpIuGDqd42wAtJwG0GAHaHa&pid=Api'))),
-                            ),
-                          ],
-                        ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        // color: Colors.grey.withOpacity(0.3),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2,
+                                style: BorderStyle.solid,
+                                color: Colors.white),
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                    'https://tse4.mm.bing.net/th?id=OIP.pvIrpIuGDqd42wAtJwG0GAHaHa&pid=Api'))),
                       ),
                       SizedBox(
                         width: 10,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+                          Text(
+                            "Zainul Karim",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w600),
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Zainul Karim",
-                                style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.w600),
-                              ),
-                              Text(
                                 "+62 85123456789",
                                 style: TextStyle(
-                                  fontSize: 10,
+                                  fontSize: 14,
                                 ),
                               ),
+                              Text(
+                                "zainulkarim@gmail.com",
+                                style: TextStyle(fontSize: 14),
+                              ),
                             ],
-                          ),
-                          Text(
-                            "zainulkarim@gmail.com",
-                            style: TextStyle(fontSize: 12),
                           ),
                         ],
                       ),
@@ -235,8 +227,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-class FormChangePassword extends StatelessWidget {
-  const FormChangePassword({
+class FormChangePassword extends StatefulWidget {
+  FormChangePassword({
     Key? key,
     required this.SettingController,
   }) : super(key: key);
@@ -244,50 +236,57 @@ class FormChangePassword extends StatelessWidget {
   final ProfilePageController SettingController;
 
   @override
+  State<FormChangePassword> createState() => _FormChangePasswordState();
+}
+
+class _FormChangePasswordState extends State<FormChangePassword> {
+  bool _showPassword = true;
+  void showPassword() {
+    setState(() {
+      _showPassword = !_showPassword;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          // width: 250,
-          height: 60,
-          child: TextField(
-            controller: SettingController.PasswordLamaController,
-            obscureText: true,
-            decoration: InputDecoration(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                labelText: "Kata Sandi Lama"),
-          ),
+        TextField(
+          controller: widget.SettingController.PasswordLamaController,
+          obscureText: _showPassword,
+          decoration: InputDecoration(
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  showPassword();
+                },
+                child: Icon(
+                    _showPassword ? Icons.visibility : Icons.visibility_off),
+              ),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              labelText: "Kata Sandi Lama"),
         ),
         SizedBox(
           height: 6,
         ),
-        SizedBox(
-          // width: 250,
-          height: 60,
-          child: TextField(
-            controller: SettingController.PasswordBaruController,
-            obscureText: true,
-            decoration: InputDecoration(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                labelText: "Kata Sandi Baru"),
-          ),
+        TextField(
+          controller: widget.SettingController.PasswordBaruController,
+          obscureText: _showPassword,
+          decoration: InputDecoration(
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              labelText: "Kata Sandi Baru"),
         ),
         SizedBox(
           height: 6,
         ),
-        SizedBox(
-          // width: 250,
-          height: 60,
-          child: TextField(
-            controller: SettingController.KonfirmasiPasswordController,
-            obscureText: true,
-            decoration: InputDecoration(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                labelText: "Konfirmasi Kata Sandi"),
-          ),
+        TextField(
+          controller: widget.SettingController.KonfirmasiPasswordController,
+          obscureText: true,
+          decoration: InputDecoration(
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              labelText: "Konfirmasi Kata Sandi"),
         ),
         SizedBox(
           height: 10,
@@ -326,52 +325,6 @@ final TextStyle SelectedStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 14,
 );
-//   buildBottomNavigationMenu(context, BottomNavController) {
-//     return Obx(() => MediaQuery(
-//         data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-//         child:  SizedBox(
-//           height: 54,
-//           child: BottomNavigationBar(
-//             showSelectedLabels: true,
-//             showUnselectedLabels: true,
-//             onTap: BottomNavController.tabIndex,
-//             currentIndex: BottomNavController.tabIndex.value,
-//             backgroundColor: Colors.white,
-//             unselectedItemColor: Colors.grey[400],
-//             selectedItemColor: Colors.blue,
-//             selectedLabelStyle: SelectedStyle,
-//             items: [
-//               BottomNavigationBarItem(
-//                   icon: Container(
-//                     child: Icon(
-//                       Icons.home_outlined
-//                       size: 30,
-//                     ),
-//                   ),
-//                   label: "Beranda",
-//                   backgroundColor: Colors.amber),
-//               BottomNavigationBarItem(
-//                   icon: Container(
-//                     child: Icon(
-//                       Icons.error_outlined,
-//                       size: 30,
-//                     ),
-//                   ),
-//                   label: "Beranda",
-//                   backgroundColor: Colors.amber),
-//               BottomNavigationBarItem(
-//                   icon: Container(
-//                     child: Icon(
-//                       Icons.account_circle_outlined,
-//                       size: 30,
-//                     ),
-//                   ),
-//                   label: "Beranda",
-//                   backgroundColor: Colors.amber),
-//             ],
-//           ),
-//         )));
-//   }
 
 class BottomNavController extends GetxController {
   RxInt tabIndex = 0.obs;
