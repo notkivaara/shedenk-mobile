@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:get/get.dart';
+import 'package:get_cli/common/utils/json_serialize/sintaxe.dart';
 import 'package:shedenk_mobile/app/modules/EditProfilePage/views/edit_profile_page_view.dart';
 import 'package:shedenk_mobile/app/modules/LoginPage/views/login_page_view.dart';
 
@@ -14,8 +15,6 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final SettingController = Get.put(ProfilePageController());
-
-  final bottomNavController = Get.put(BottomNavController());
 
   bool showWidget = false;
   final bool showLoading = false;
@@ -202,10 +201,16 @@ class FormChangePassword extends StatefulWidget {
 }
 
 class _FormChangePasswordState extends State<FormChangePassword> {
-  bool _showPassword = true;
-  void showPassword() {
-    setState(() {
-      _showPassword = !_showPassword;
+  var _countCharacter = 0;
+  @override
+  void initState() {
+    super.initState();
+    widget.SettingController.PasswordLamaController.addListener(() {
+      int countCharacter =
+          widget.SettingController.PasswordLamaController.text.length;
+      setState(() {
+        _countCharacter = countCharacter;
+      });
     });
   }
 
@@ -213,33 +218,38 @@ class _FormChangePasswordState extends State<FormChangePassword> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
-          controller: widget.SettingController.PasswordLamaController,
-          obscureText: _showPassword,
-          decoration: InputDecoration(
-              suffixIcon: GestureDetector(
-                onTap: () {
-                  showPassword();
-                },
-                child: IconShowPassword(showPassword: _showPassword),
-              ),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-              labelText: "Kata Sandi Lama"),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: widget.SettingController.PasswordLamaController,
+              obscureText: false,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  labelText: "Kata Sandi Lama"),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 8, top: 4),
+              child: _countCharacter < 8
+                  ? Text(
+                      'minimal 8 - 16 karakter',
+                      style: TextStyle(color: Colors.red),
+                    )
+                  : Text(
+                      'Password telah memenuhi syarat',
+                      style: TextStyle(color: Colors.green),
+                    ),
+            ),
+          ],
         ),
         SizedBox(
           height: 6,
         ),
         TextFormField(
           controller: widget.SettingController.PasswordBaruController,
-          obscureText: _showPassword,
+          obscureText: false,
           decoration: InputDecoration(
-              suffixIcon: GestureDetector(
-                onTap: () {
-                  showPassword();
-                },
-                child: IconShowPassword(showPassword: _showPassword),
-              ),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               labelText: "Kata Sandi Baru"),
@@ -249,14 +259,8 @@ class _FormChangePasswordState extends State<FormChangePassword> {
         ),
         TextFormField(
           controller: widget.SettingController.KonfirmasiPasswordController,
-          obscureText: true,
+          obscureText: false,
           decoration: InputDecoration(
-              suffixIcon: GestureDetector(
-                onTap: () {
-                  showPassword();
-                },
-                child: IconShowPassword(showPassword: _showPassword),
-              ),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               labelText: "Konfirmasi Kata Sandi"),
@@ -270,7 +274,8 @@ class _FormChangePasswordState extends State<FormChangePassword> {
           child: ElevatedButton(
             // style: ,
             onPressed: () {
-              CircularProgressIndicator();
+              print(
+                  '${widget.SettingController.KonfirmasiPasswordController.text.length}');
             },
             child: Text("Simpan",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
@@ -285,21 +290,6 @@ class _FormChangePasswordState extends State<FormChangePassword> {
         ),
       ],
     );
-  }
-}
-
-class IconShowPassword extends StatelessWidget {
-  const IconShowPassword({
-    Key? key,
-    required bool showPassword,
-  })  : _showPassword = showPassword,
-        super(key: key);
-
-  final bool _showPassword;
-
-  @override
-  Widget build(BuildContext context) {
-    return Icon(_showPassword ? Icons.visibility : Icons.visibility_off);
   }
 }
 

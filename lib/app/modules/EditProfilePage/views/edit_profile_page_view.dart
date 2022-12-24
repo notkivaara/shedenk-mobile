@@ -1,12 +1,41 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shedenk_mobile/app/modules/EditProfilePage/controllers/edit_profile_page_controller.dart';
 import 'package:shedenk_mobile/app/modules/ProfilePage/views/profile_page_view.dart';
 
-class EditProfilePage extends StatelessWidget {
-  final FieldForgotPasswordPageController =
-      Get.put((EditProfilePageController));
+class EditProfilePage extends StatefulWidget {
+  // final Function(ImageSource source) onTap;
+  // const EditProfilePage({Key? key, required this.onTap}) : super(key: key);
+
+  @override
+  State<EditProfilePage> createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends State<EditProfilePage> {
+  final FieldEditProfileController = Get.put(EditProfilePageController());
+  File? _image;
+  Future _chooseImage(ImageSource source) async {
+    final image = await ImagePicker().pickImage(source: source);
+    if (image == null) return;
+    File? img = File(image.path);
+    img = await _cropImage(imageFile: img);
+    setState(() {
+      _image = img;
+    });
+  }
+
+  Future<File?> _cropImage({required File imageFile}) async {
+    CroppedFile? cropImage = await ImageCropper().cropImage(sourcePath: imageFile.path);
+    if (cropImage == null) return null;
+    return File(cropImage.path);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,11 +70,18 @@ class EditProfilePage extends StatelessWidget {
                                 style: BorderStyle.solid,
                                 color: Colors.white),
                             shape: BoxShape.circle,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  'https://tse4.mm.bing.net/th?id=OIP.pvIrpIuGDqd42wAtJwG0GAHaHa&pid=Api'),
-                            ),
+                            // image: DecorationImage(
+                            //   fit: BoxFit.cover,
+                            //   image: ,
+                            // ),
+                          ),
+                          child: Center(
+                            child: _image == null
+                                ? const Text('No Image')
+                                : CircleAvatar(
+                                    backgroundImage: FileImage(_image!),
+                                    radius: 100,
+                                  ),
                           ),
                         ),
                         Positioned(
@@ -76,6 +112,7 @@ class EditProfilePage extends StatelessWidget {
                                             ),
                                             splashColor: Colors.grey,
                                             onTap: () {
+                                              _chooseImage(ImageSource.camera);
                                               print("ea");
                                             },
                                           ),
@@ -95,6 +132,7 @@ class EditProfilePage extends StatelessWidget {
                                             ),
                                             splashColor: Colors.grey,
                                             onTap: () {
+                                              _chooseImage(ImageSource.gallery);
                                               print("ea");
                                             },
                                           ),
@@ -131,7 +169,7 @@ class EditProfilePage extends StatelessWidget {
                   height: 20,
                 ),
                 TextField(
-                  // controller:,
+                  controller: FieldEditProfileController.UsernameController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -141,7 +179,7 @@ class EditProfilePage extends StatelessWidget {
                   height: 10,
                 ),
                 TextField(
-                  // controller:,
+                  controller: FieldEditProfileController.HobiController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -151,7 +189,7 @@ class EditProfilePage extends StatelessWidget {
                   height: 10,
                 ),
                 TextField(
-                  // controller:,
+                  controller: FieldEditProfileController.EmailController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -161,11 +199,22 @@ class EditProfilePage extends StatelessWidget {
                   height: 10,
                 ),
                 TextField(
-                  // controller: ,
+                  controller: FieldEditProfileController.NomorTeleponController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
                       labelText: "Nomor Telepon"),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  controller: FieldEditProfileController.PasswordForConfirm,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      labelText:
+                          "Masukkan Password untuk Konfirmasi Perubahan"),
                 ),
                 SizedBox(
                   height: 10,
@@ -175,7 +224,21 @@ class EditProfilePage extends StatelessWidget {
                   child: ElevatedButton(
                     // style: ,
                     onPressed: () {
-                      Get.off(() => ProfilePage());
+                      print('USERNAME = ' +
+                          FieldEditProfileController
+                              .UsernameController.value.text);
+                      print('HOBI = ' +
+                          FieldEditProfileController.HobiController.value.text);
+                      print('EMAIL = ' +
+                          FieldEditProfileController
+                              .EmailController.value.text);
+                      print('NOMOR TELEPON = ' +
+                          FieldEditProfileController
+                              .NomorTeleponController.value.text);
+                      print('KATA SANDI = ' +
+                          FieldEditProfileController
+                              .PasswordForConfirm.value.text);
+                      // Get.back();
                     },
                     child: Text("Simpan",
                         style: TextStyle(

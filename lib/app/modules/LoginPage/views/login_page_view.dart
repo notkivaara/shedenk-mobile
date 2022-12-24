@@ -5,8 +5,21 @@ import 'package:shedenk_mobile/app/modules/ProfilePage/views/profile_page_view.d
 import '../../RegisterPage/views/register_page_view.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final FieldLoginController = Get.put(LoginPageController());
+
+  bool _showPassword = true;
+
+  void showPassword() {
+    setState(() {
+      _showPassword = !_showPassword;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +111,7 @@ class LoginPage extends StatelessWidget {
                 child: ElevatedButton(
                   // style: ,
                   onPressed: () {
-                    Get.off(() => ProfilePage());
+                    Get.back();
                   },
                   child: Text("Masuk",
                       style:
