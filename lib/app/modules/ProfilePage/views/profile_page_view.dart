@@ -23,14 +23,14 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     "Profile",
-      //     style: TextStyle(color: Colors.black),
-      //   ),
-      //   backgroundColor: Colors.transparent,
-      //   shadowColor: Colors.transparent,
-      // ),
+      appBar: AppBar(
+        title: Text(
+          "Profile",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue,
+        shadowColor: Colors.transparent,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: ListView(
@@ -47,15 +47,16 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 100,
                         // color: Colors.grey.withOpacity(0.3),
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 2,
-                                style: BorderStyle.solid,
-                                color: Colors.white),
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    'https://tse4.mm.bing.net/th?id=OIP.pvIrpIuGDqd42wAtJwG0GAHaHa&pid=Api'))),
+                          border: Border.all(
+                              width: 2,
+                              style: BorderStyle.solid,
+                              color: Colors.white),
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                  'https://tse4.mm.bing.net/th?id=OIP.pvIrpIuGDqd42wAtJwG0GAHaHa&pid=Api')),
+                        ),
                       ),
                       SizedBox(
                         width: 10,

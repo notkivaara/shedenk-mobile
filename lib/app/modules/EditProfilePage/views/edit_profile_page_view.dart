@@ -32,19 +32,21 @@ class EditProfilePage extends StatelessWidget {
                     Stack(
                       children: [
                         Container(
-                          width: 100,
-                          height: 100,
+                          width: 150,
+                          height: 150,
                           // color: Colors.grey.withOpacity(0.3),
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 2,
-                                  style: BorderStyle.solid,
-                                  color: Colors.white),
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                      'https://tse4.mm.bing.net/th?id=OIP.pvIrpIuGDqd42wAtJwG0GAHaHa&pid=Api'))),
+                            border: Border.all(
+                                width: 2,
+                                style: BorderStyle.solid,
+                                color: Colors.white),
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                  'https://tse4.mm.bing.net/th?id=OIP.pvIrpIuGDqd42wAtJwG0GAHaHa&pid=Api'),
+                            ),
+                          ),
                         ),
                         Positioned(
                           right: 0,
@@ -136,7 +138,7 @@ class EditProfilePage extends StatelessWidget {
                       labelText: "Username"),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextField(
                   // controller:,
@@ -146,7 +148,7 @@ class EditProfilePage extends StatelessWidget {
                       labelText: "Hobi"),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextField(
                   // controller:,
@@ -156,7 +158,7 @@ class EditProfilePage extends StatelessWidget {
                       labelText: "Email"),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextField(
                   // controller: ,
@@ -169,7 +171,7 @@ class EditProfilePage extends StatelessWidget {
                   height: 10,
                 ),
                 Container(
-                  height: 50,
+                  height: 60,
                   child: ElevatedButton(
                     // style: ,
                     onPressed: () {
@@ -177,7 +179,7 @@ class EditProfilePage extends StatelessWidget {
                     },
                     child: Text("Simpan",
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600)),
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                     style: ElevatedButton.styleFrom(
                         minimumSize: Size.fromHeight(40),
                         shape: RoundedRectangleBorder(
