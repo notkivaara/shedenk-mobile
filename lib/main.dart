@@ -8,7 +8,6 @@ import 'package:shedenk_mobile/app/modules/ProfilePage/views/profile_page_view.d
 
 import 'app/modules/LoginPage/views/login_page_view.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProfilePage(),
+      home: AboutPage(),
     );
   }
 }
