@@ -185,45 +185,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        onTap: bottomNavController.tabIndex,
-        currentIndex: bottomNavController.tabIndex.value,
-        backgroundColor: Colors.white,
-        unselectedItemColor: Colors.grey[400],
-        selectedItemColor: Colors.blue,
-        // selectedLabelStyle: SelectedStyle,
-        items: [
-          BottomNavigationBarItem(
-              icon: Container(
-                child: Icon(
-                  Icons.home_outlined,
-                  size: 30,
-                ),
-              ),
-              label: "Beranda",
-              backgroundColor: Colors.amber),
-          BottomNavigationBarItem(
-              icon: Container(
-                child: Icon(
-                  Icons.error_outlined,
-                  size: 30,
-                ),
-              ),
-              label: "Beranda",
-              backgroundColor: Colors.amber),
-          BottomNavigationBarItem(
-              icon: Container(
-                child: Icon(
-                  Icons.account_circle_outlined,
-                  size: 30,
-                ),
-              ),
-              label: "Beranda",
-              backgroundColor: Colors.amber),
-        ],
-      ),
     );
   }
 }
@@ -260,8 +221,7 @@ class _FormChangePasswordState extends State<FormChangePassword> {
                 onTap: () {
                   showPassword();
                 },
-                child: Icon(
-                    _showPassword ? Icons.visibility : Icons.visibility_off),
+                child: IconShowPassword(showPassword: _showPassword),
               ),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -270,10 +230,16 @@ class _FormChangePasswordState extends State<FormChangePassword> {
         SizedBox(
           height: 6,
         ),
-        TextField(
+        TextFormField(
           controller: widget.SettingController.PasswordBaruController,
           obscureText: _showPassword,
           decoration: InputDecoration(
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  showPassword();
+                },
+                child: IconShowPassword(showPassword: _showPassword),
+              ),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               labelText: "Kata Sandi Baru"),
@@ -281,10 +247,16 @@ class _FormChangePasswordState extends State<FormChangePassword> {
         SizedBox(
           height: 6,
         ),
-        TextField(
+        TextFormField(
           controller: widget.SettingController.KonfirmasiPasswordController,
           obscureText: true,
           decoration: InputDecoration(
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  showPassword();
+                },
+                child: IconShowPassword(showPassword: _showPassword),
+              ),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               labelText: "Konfirmasi Kata Sandi"),
@@ -313,6 +285,21 @@ class _FormChangePasswordState extends State<FormChangePassword> {
         ),
       ],
     );
+  }
+}
+
+class IconShowPassword extends StatelessWidget {
+  const IconShowPassword({
+    Key? key,
+    required bool showPassword,
+  })  : _showPassword = showPassword,
+        super(key: key);
+
+  final bool _showPassword;
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(_showPassword ? Icons.visibility : Icons.visibility_off);
   }
 }
 
