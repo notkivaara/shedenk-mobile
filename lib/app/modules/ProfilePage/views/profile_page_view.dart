@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -7,6 +9,20 @@ import 'package:shedenk_mobile/app/modules/EditProfilePage/views/edit_profile_pa
 import 'package:shedenk_mobile/app/modules/LoginPage/views/login_page_view.dart';
 
 import '../controllers/profile_page_controller.dart';
+import 'package:flutter/widgets.dart';
+
+// class ProfilePageVariable extends InheritedWidget {
+//   final bool showWidget;
+
+//   const ProfilePageVariable({
+//     Key? key, required this.showWidget, required Widget child,
+//   }) : super(key: key, child: child);
+
+//   @override
+//   bool updateShouldNotify(ProfilePageVariable oldWidget) => showWidget != oldWidget.showWidget;
+
+//   static ProfilePageVariable? of(BuildContext context) { context.dependOnInheritedWidgetOfExactType<ProfilePageVariable>(); }
+// }
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -16,7 +32,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final SettingController = Get.put(ProfilePageController());
 
-  bool showWidget = false;
+  static bool showWidget = false;
   final bool showLoading = false;
 
   @override
@@ -201,15 +217,36 @@ class FormChangePassword extends StatefulWidget {
 }
 
 class _FormChangePasswordState extends State<FormChangePassword> {
-  var _countCharacter = 0;
+  var _countCharacter1 = 0;
+  var _countCharacter2 = 0;
+  bool _confirmPassword = false;
   @override
   void initState() {
     super.initState();
     widget.SettingController.PasswordLamaController.addListener(() {
-      int countCharacter =
+      int countCharacter1 =
           widget.SettingController.PasswordLamaController.text.length;
       setState(() {
-        _countCharacter = countCharacter;
+        _countCharacter1 = countCharacter1;
+      });
+    });
+    widget.SettingController.PasswordBaruController.addListener(() {
+      int countCharacter2 =
+          widget.SettingController.PasswordBaruController.text.length;
+      setState(() {
+        _countCharacter2 = countCharacter2;
+        widget.SettingController.KonfirmasiPasswordController.value.text ==
+                widget.SettingController.PasswordBaruController.value.text
+            ? _confirmPassword = true
+            : _confirmPassword = false;
+      });
+    });
+    widget.SettingController.KonfirmasiPasswordController.addListener(() {
+      setState(() {
+        widget.SettingController.KonfirmasiPasswordController.value.text ==
+                widget.SettingController.PasswordBaruController.value.text
+            ? _confirmPassword = true
+            : _confirmPassword = false;
       });
     });
   }
@@ -231,7 +268,7 @@ class _FormChangePasswordState extends State<FormChangePassword> {
             ),
             Container(
               margin: EdgeInsets.only(left: 8, top: 4),
-              child: _countCharacter < 8
+              child: _countCharacter1 < 8 || _countCharacter1 > 16
                   ? Text(
                       'minimal 8 - 16 karakter',
                       style: TextStyle(color: Colors.red),
@@ -246,24 +283,49 @@ class _FormChangePasswordState extends State<FormChangePassword> {
         SizedBox(
           height: 6,
         ),
-        TextFormField(
-          controller: widget.SettingController.PasswordBaruController,
-          obscureText: false,
-          decoration: InputDecoration(
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-              labelText: "Kata Sandi Baru"),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: widget.SettingController.PasswordBaruController,
+              obscureText: false,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  labelText: "Kata Sandi Baru"),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 8, top: 4),
+              child: _countCharacter2 < 8 || _countCharacter2 > 16
+                  ? Text(
+                      'minimal 8 - 16 karakter',
+                      style: TextStyle(color: Colors.red),
+                    )
+                  : Text(
+                      'Password telah memenuhi syarat',
+                      style: TextStyle(color: Colors.green),
+                    ),
+            ),
+          ],
         ),
         SizedBox(
           height: 6,
         ),
-        TextFormField(
-          controller: widget.SettingController.KonfirmasiPasswordController,
-          obscureText: false,
-          decoration: InputDecoration(
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-              labelText: "Konfirmasi Kata Sandi"),
+        Column(
+          children: [
+            TextField(
+              controller: widget.SettingController.KonfirmasiPasswordController,
+              obscureText: false,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  labelText: "Konfirmasi Kata Sandi"),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 8, top: 4),
+              child: _confirmPassword ? Text('Mantab') : Text('Salah'),
+            ),
+          ],
         ),
         SizedBox(
           height: 10,
@@ -274,8 +336,10 @@ class _FormChangePasswordState extends State<FormChangePassword> {
           child: ElevatedButton(
             // style: ,
             onPressed: () {
-              print(
-                  '${widget.SettingController.KonfirmasiPasswordController.text.length}');
+              print(widget.SettingController.PasswordLamaController.value.text);
+              print(widget.SettingController.PasswordBaruController.value.text);
+              print(widget
+                  .SettingController.KonfirmasiPasswordController.value.text);
             },
             child: Text("Simpan",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),

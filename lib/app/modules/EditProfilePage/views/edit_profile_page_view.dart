@@ -7,6 +7,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shedenk_mobile/app/modules/EditProfilePage/controllers/edit_profile_page_controller.dart';
 import 'package:shedenk_mobile/app/modules/ProfilePage/views/profile_page_view.dart';
+import 'package:flutter/widgets.dart';
 
 class EditProfilePage extends StatefulWidget {
   // final Function(ImageSource source) onTap;
@@ -30,11 +31,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Future<File?> _cropImage({required File imageFile}) async {
-    CroppedFile? cropImage = await ImageCropper().cropImage(sourcePath: imageFile.path);
+    CroppedFile? cropImage =
+        await ImageCropper().cropImage(sourcePath: imageFile.path);
     if (cropImage == null) return null;
     return File(cropImage.path);
   }
-
 
   @override
   Widget build(BuildContext context) {

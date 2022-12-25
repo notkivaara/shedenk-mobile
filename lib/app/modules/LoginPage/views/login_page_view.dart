@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: ElevatedButton(
                   // style: ,
                   onPressed: () {
-                    Get.back();
+                    Get.to(() => ProfilePage());
                   },
                   child: Text("Masuk",
                       style:

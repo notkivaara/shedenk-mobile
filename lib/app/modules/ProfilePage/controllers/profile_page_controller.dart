@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
+
 class ProfilePageController extends GetxController {
 
 
@@ -8,5 +9,8 @@ class ProfilePageController extends GetxController {
 
   final PasswordBaruController = TextEditingController();
   final KonfirmasiPasswordController = TextEditingController();
+
+  
+  
 }
 
