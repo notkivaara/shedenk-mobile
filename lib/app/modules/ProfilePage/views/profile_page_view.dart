@@ -312,6 +312,7 @@ class _FormChangePasswordState extends State<FormChangePassword> {
           height: 6,
         ),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
               controller: widget.SettingController.KonfirmasiPasswordController,
@@ -323,7 +324,9 @@ class _FormChangePasswordState extends State<FormChangePassword> {
             ),
             Container(
               margin: EdgeInsets.only(left: 8, top: 4),
-              child: _confirmPassword ? Text('Mantab') : Text('Salah'),
+              child: _confirmPassword
+                  ? Text('Mantab', style: TextStyle(color: Colors.green))
+                  : Text('Salah', style: TextStyle(color: Colors.red)),
             ),
           ],
         ),
