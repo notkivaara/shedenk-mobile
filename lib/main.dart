@@ -5,6 +5,7 @@ import 'package:shedenk_mobile/app/modules/EditProfilePage/views/edit_profile_pa
 import 'package:shedenk_mobile/app/modules/ForgotPasswordPage/views/forgot_password_page_view.dart';
 import 'package:shedenk_mobile/app/modules/RatePage/views/rate_page_view.dart';
 import 'package:shedenk_mobile/app/modules/ProfilePage/views/profile_page_view.dart';
+import 'package:shedenk_mobile/screens/home/home_screen.dart';
 
 import 'app/modules/LoginPage/views/login_page_view.dart';
 
@@ -21,9 +22,9 @@ class _MyAppState extends State<MyApp> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(),
     AboutPage(),
     ProfilePage(),
-    LoginPage()
   ];
 
   void _onItemTapped(int index) {
@@ -41,15 +42,15 @@ class _MyAppState extends State<MyApp> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Home',
+              label: 'Beranda',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.business),
-              label: 'Business',
+              icon: Icon(Icons.error),
+              label: 'Tentang',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              label: 'School',
+              icon: Icon(Icons.person),
+              label: 'Akun',
             ),
           ],
           currentIndex: _selectedIndex,
