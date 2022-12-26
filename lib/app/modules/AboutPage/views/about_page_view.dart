@@ -123,7 +123,8 @@ class _AboutPageState extends State<AboutPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        launchUrlString('https://www.instagram.com/fredaart');
+                        launchUrlString(
+                            'https://instagram.com/shedenkstuff?igshid=OGQ2MjdiOTE=');
                         print("Instagram");
                       },
                       child: SvgPicture.asset(
