@@ -2,8 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shedenk_mobile/constants.dart';
 import 'package:shedenk_mobile/screens/home/components/categorries.dart';
+import 'package:shedenk_mobile/screens/home/components/item_card.dart';
 
 import '../../../models/product.dart';
+import '../../details/details_screen.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -47,51 +49,28 @@ class Body extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
-            child: GridView.builder(
-                itemCount: products.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: kDefaultPaddin,
-                    crossAxisSpacing: kDefaultPaddin,
-                    childAspectRatio: 0.75),
-                itemBuilder: (context, index) =>
-                    ItemCard(product: products[index])),
+            child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
+          child: GridView.builder(
+            itemCount: products.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: kDefaultPaddin,
+                crossAxisSpacing: kDefaultPaddin,
+                childAspectRatio: 0.75),
+            itemBuilder: (context, index) => ItemCard(
+              product: products[index],
+              press: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailsScreen(
+                    product: products[index],
+                  ),
+                ),
+              ),
+            ),
           ),
-        )
-      ],
-    );
-  }
-}
-
-class ItemCard extends StatelessWidget {
-  final Product product;
-  // final Function press;
-
-  const ItemCard({
-    Key? key,
-    required this.product,
-    // required this.press,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          decoration: BoxDecoration(color: Colors.grey),
-          child: Image.network("https://picsum.photos/200"),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin / 4),
-          child: Text(
-            product.title,
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
-        Text("Rp 100.000"),
+        ))
       ],
     );
   }
