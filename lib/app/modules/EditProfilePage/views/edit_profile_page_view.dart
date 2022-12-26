@@ -222,6 +222,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 Container(
                   height: 60,
+                  width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     // style: ,
                     onPressed: () {
@@ -245,7 +246,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                     style: ElevatedButton.styleFrom(
-                        minimumSize: Size.fromHeight(40),
+                        // minimumSize: Size.fromHeight(40),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                   ),

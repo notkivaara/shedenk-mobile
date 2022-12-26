@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_cli/common/utils/json_serialize/sintaxe.dart';
 import 'package:shedenk_mobile/app/modules/EditProfilePage/views/edit_profile_page_view.dart';
 import 'package:shedenk_mobile/app/modules/LoginPage/views/login_page_view.dart';
+// import 'package:widgets/divider.dart';
 
 import '../controllers/profile_page_controller.dart';
 import 'package:flutter/widgets.dart';
@@ -333,24 +334,60 @@ class _FormChangePasswordState extends State<FormChangePassword> {
         SizedBox(
           height: 10,
         ),
-        Container(
-          height: 50,
-          width: MediaQuery.of(context).size.width,
-          child: ElevatedButton(
-            // style: ,
-            onPressed: () {
-              print(widget.SettingController.PasswordLamaController.value.text);
-              print(widget.SettingController.PasswordBaruController.value.text);
-              print(widget
-                  .SettingController.KonfirmasiPasswordController.value.text);
-            },
-            child: Text("Simpan",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+        ElevatedButton(
+          onPressed: () {
+            print(widget.SettingController.PasswordLamaController.value.text);
+            print(widget.SettingController.PasswordBaruController.value.text);
+            print(widget
+                .SettingController.KonfirmasiPasswordController.value.text);
+            Get.defaultDialog(
+              contentPadding: EdgeInsets.all(10),
+              title: '',
+              titleStyle: TextStyle(fontSize: 0),
+              content: Text(
+                'Simpan Perubahan?',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              cancel: ElevatedButton(
+                style: ButtonStyle(
+                  elevation: MaterialStateProperty.all(0),
+                  minimumSize: MaterialStateProperty.all(
+                      Size(MediaQuery.of(context).size.width * .25, 40)),
+                  overlayColor:
+                      MaterialStateProperty.all(Colors.red.withOpacity(.2)),
+                  side: MaterialStateProperty.all(
+                      BorderSide(width: 2, color: Colors.red)),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20))),
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.transparent),
+                  shadowColor: MaterialStateProperty.all(Colors.transparent),
                 ),
+                onPressed: () {},
+                child: Text(
+                  "Batal",
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+              confirm: ElevatedButton(
+                style: ButtonStyle(
+                  elevation: MaterialStateProperty.all(0),
+                  minimumSize: MaterialStateProperty.all(
+                      Size(MediaQuery.of(context).size.width * .25, 40)),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20))),
+                ),
+                onPressed: () {},
+                child: Text("Simpan"),
+              ),
+            );
+          },
+          child: Text("Simpan",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
           ),
