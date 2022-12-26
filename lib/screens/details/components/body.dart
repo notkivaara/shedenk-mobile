@@ -16,9 +16,9 @@ class _BodyState extends State<Body> {
   final CarouselController _controller = CarouselController();
 
   List<Widget> myData = [
-    Image(image: NetworkImage("https:picsum.photos/350/500")),
-    Image(image: NetworkImage("https:picsum.photos/350/500")),
-    Image(image: NetworkImage("https:picsum.photos/350/500")),
+    Image.network("https://picsum.photos/500/500"),
+    Image.network("https://picsum.photos/350/500"),
+    Image.network("https://picsum.photos/350/500"),
   ];
 
   @override
@@ -38,16 +38,15 @@ class _BodyState extends State<Body> {
             }),
       ),
       Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: myData.asMap().entries.map((entry) {
           return GestureDetector(
             onTap: () => _controller.animateToPage(entry.key),
             child: Container(
-              width: 12.0,
-              height: 12.0,
+              width: 30.0,
+              height: 30.0,
               margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
               decoration: BoxDecoration(
-                  shape: BoxShape.circle,
                   color: (Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.black)
