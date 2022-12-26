@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:shedenk_mobile/main.dart';
@@ -99,7 +97,7 @@ class _AboutPageState extends State<AboutPage> {
                       onTap: ()
                           // print("WhatsApp");
                           // OpenWa();
-                          async {
+                          {
                         launchUrlString('https://wa.me/6285156262237');
                       },
                       child: SvgPicture.asset(

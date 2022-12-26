@@ -6,4 +6,5 @@ class EditProfilePageController extends GetxController {
   final HobiController = TextEditingController();
   final EmailController = TextEditingController();
   final NomorTeleponController = TextEditingController();
+  final PasswordForConfirm = TextEditingController();
 }
