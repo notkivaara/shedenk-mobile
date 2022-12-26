@@ -14,7 +14,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   int _current = 0;
-  int _current1 = 0;
+  double _opacity = 0;
   final CarouselController _controller = CarouselController();
 
   List<Widget> myData = [
@@ -35,7 +35,9 @@ class _BodyState extends State<Body> {
         items: myData,
         carouselController: _controller,
         options: CarouselOptions(
-            // autoPlay: true,
+            // autoPlayInterval: Duration(milliseconds: 300),
+            // autoPlayAnimationDuration: Duration(milliseconds: 1),
+            autoPlay: true,
             enlargeCenterPage: true,
             aspectRatio: 2.0,
             onPageChanged: (index, reason) {
@@ -60,13 +62,20 @@ class _BodyState extends State<Body> {
                         // color: Colors.amber,
                         height: 40,
                         width: 40,
-                        child: Image.network(myData2[index]),
+                        // child: Image.network(myData2[index], _current == index ? 0.9 : 0.4),
                         decoration: BoxDecoration(
-                            color: (Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black)
-                                .withOpacity(_current == index ? 0.9 : 0.4))),
+                            color: Colors.white,
+                            image: _current == index
+                                ? DecorationImage(
+                                    opacity: 1,
+                                    image: NetworkImage(
+                                      myData2[index],
+                                    ))
+                                : DecorationImage(
+                                    opacity: .4,
+                                    image: NetworkImage(
+                                      myData2[index],
+                                    )))),
                   ),
                   SizedBox(
                     width: 4,
