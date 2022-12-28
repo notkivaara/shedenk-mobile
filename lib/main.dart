@@ -5,6 +5,8 @@ import 'package:shedenk_mobile/app/modules/EditProfilePage/views/edit_profile_pa
 import 'package:shedenk_mobile/app/modules/ForgotPasswordPage/views/forgot_password_page_view.dart';
 import 'package:shedenk_mobile/app/modules/RatePage/views/rate_page_view.dart';
 import 'package:shedenk_mobile/app/modules/ProfilePage/views/profile_page_view.dart';
+import 'package:shedenk_mobile/models/product.dart';
+import 'package:shedenk_mobile/screens/details/details_screen.dart';
 import 'package:shedenk_mobile/screens/home/home_screen.dart';
 
 import 'app/modules/LoginPage/views/login_page_view.dart';
@@ -57,10 +59,10 @@ class _MyAppState extends State<MyApp> {
           selectedItemColor: Colors.blue,
           onTap: _onItemTapped,
         ),
-        body: _widgetOptions[_selectedIndex],
+        body: HomeScreen(),
       ),
     );
   }
 }
 
-//
+// _widgetOptions[_selectedIndex]

@@ -1,9 +1,14 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:shedenk_mobile/app/modules/ForgotPasswordPage/views/forgot_password_page_view.dart';
 import 'package:shedenk_mobile/app/modules/LoginPage/controllers/login_page_controller.dart';
 import 'package:shedenk_mobile/app/modules/ProfilePage/views/profile_page_view.dart';
+import 'package:shedenk_mobile/screens/home/home_screen.dart';
 import '../../RegisterPage/views/register_page_view.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:shedenk_mobile/url.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,7 +16,21 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   final FieldLoginController = Get.put(LoginPageController());
+  Future<void> _login() async {
+    Uri url = Uri.parse(
+        "http://10.0.2.2/shedenk-web/service/loginservice.php?email=${FieldLoginController.UsernameController.text.toString()}&password=${FieldLoginController.PasswordController.text.toString()}");
+
+    var response = await http.get(url);
+    print('kata kata');
+
+    if (response.statusCode == 200) {
+      //Server response into variable
+      print(response.body);
+      Get.off(() => HomeScreen());
+    }
+  }
 
   bool _showPassword = true;
 
@@ -110,9 +129,18 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
                   // style: ,
-                  onPressed: () {
-                    Get.to(() => ProfilePage());
+                  onPressed: () async {
+                    // final isValidForm = ();
+                    // if (_formKey.currentState!.validate()) {
+                    _login();
+                    print('hiya');
+                    // } else {
+                    // print('Gagal');
+                    // return null;
+                    // }
                   },
+                  // _login();
+                  // Get.to(() => ProfilePage());
                   child: Text("Masuk",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),

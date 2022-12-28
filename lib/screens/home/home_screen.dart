@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: topNavBar(),
-      body: Body(),
+      body: BodyHome(),
     );
   }
 }
