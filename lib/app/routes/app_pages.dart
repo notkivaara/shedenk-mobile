@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shedenk_mobile/app/modules/CartPage/views/cart_page_view.dart';
 
 import '../modules/AboutPage/bindings/about_page_binding.dart';
 import '../modules/AboutPage/views/about_page_view.dart';
@@ -63,6 +64,11 @@ class AppPages {
     GetPage(
       name: _Paths.EDIT_PROFILE_PAGE,
       page: () => EditProfilePage(),
+      // binding: EditProfilePageBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_PROFILE_PAGE,
+      page: () => CartPage(),
       // binding: EditProfilePageBinding(),
     ),
   ];

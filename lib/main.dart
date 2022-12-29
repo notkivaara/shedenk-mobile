@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
           selectedItemColor: Colors.blue,
           onTap: _onItemTapped,
         ),
-        body: HomeScreen(),
+        body: _widgetOptions[_selectedIndex],
       ),
     );
   }

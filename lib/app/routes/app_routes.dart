@@ -11,6 +11,7 @@ abstract class Routes {
   static const ABOUT_P_AGE = _Paths.ABOUT_P_AGE;
   static const ABOUT_PAGE = _Paths.ABOUT_PAGE;
   static const EDIT_PROFILE_PAGE = _Paths.EDIT_PROFILE_PAGE;
+  static const CART_PAGE = _Paths.EDIT_PROFILE_PAGE;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const ABOUT_P_AGE = '/about-p-age';
   static const ABOUT_PAGE = '/about-page';
   static const EDIT_PROFILE_PAGE = '/edit-profile-page';
+  static const CART_PAGE = '/edit-profile-page';
 }

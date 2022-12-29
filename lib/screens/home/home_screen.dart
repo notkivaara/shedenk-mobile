@@ -6,11 +6,14 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:shedenk_mobile/app/modules/CartPage/views/cart_page_view.dart';
 import 'components/top_navbar.dart';
+import 'package:get/get.dart';
 
 import 'components/body.dart';
 
 class HomeScreen extends StatefulWidget {
+  @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
@@ -55,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: Icon(Icons.shopping_cart_outlined),
             color: Colors.black,
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => CartPage());
+            },
           ),
         ],
       ),
