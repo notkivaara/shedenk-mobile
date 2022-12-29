@@ -50,12 +50,56 @@ class _BodyHomeState extends State<BodyHome> {
             fit: BoxFit.cover),
       ),
     ),
+    Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: NetworkImage(
+              "https://picsum.photos/500/500",
+            ),
+            fit: BoxFit.cover),
+      ),
+    ),
+    Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: NetworkImage(
+              "https://picsum.photos/500/500",
+            ),
+            fit: BoxFit.cover),
+      ),
+    ),
+    Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: NetworkImage(
+              "https://picsum.photos/500/500",
+            ),
+            fit: BoxFit.cover),
+      ),
+    ),
+    Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: NetworkImage(
+              "https://picsum.photos/500/500",
+            ),
+            fit: BoxFit.cover),
+      ),
+    ),
+    Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: NetworkImage(
+              "https://picsum.photos/500/500",
+            ),
+            fit: BoxFit.cover),
+      ),
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
       children: [
         Stack(
           alignment: Alignment.bottomCenter,
@@ -113,13 +157,17 @@ class _BodyHomeState extends State<BodyHome> {
             ),
           ],
         ),
-        Container(
-          child: Text(
-            "Rekomendasi untuk anda",
-            style: Theme.of(context)
-                .textTheme
-                .headline6
-                ?.copyWith(fontWeight: FontWeight.bold),
+
+        Padding(
+          padding: const EdgeInsets.only(top: 12, bottom: 8, left: 8, right: 8),
+          child: Container(
+            child: Text(
+              "Rekomendasi untuk anda",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
           ),
         ),
         // GridView.builder(
@@ -140,7 +188,27 @@ class _BodyHomeState extends State<BodyHome> {
         //       ),
         //     ),
         //   ),
-        // )
+        // ),
+        GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: 0.8,
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          children: [
+            for (int i = 0; i < products.length; i++)
+              ItemCard(
+                press: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailsScreen(
+                      product: products[i],
+                    ),
+                  ),
+                ),
+                product: products[i],
+              ),
+          ],
+        )
       ],
     );
   }

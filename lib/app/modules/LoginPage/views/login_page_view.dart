@@ -1,5 +1,7 @@
 // import 'dart:html';
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shedenk_mobile/app/modules/ForgotPasswordPage/views/forgot_password_page_view.dart';
 import 'package:shedenk_mobile/app/modules/LoginPage/controllers/login_page_controller.dart';
@@ -9,6 +11,7 @@ import '../../RegisterPage/views/register_page_view.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shedenk_mobile/url.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -18,6 +21,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final FieldLoginController = Get.put(LoginPageController());
+  List result = [];
   Future<void> _login() async {
     Uri url = Uri.parse(
         "http://10.0.2.2/shedenk-web/service/loginservice.php?email=${FieldLoginController.UsernameController.text.toString()}&password=${FieldLoginController.PasswordController.text.toString()}");
@@ -28,8 +32,75 @@ class _LoginPageState extends State<LoginPage> {
     if (response.statusCode == 200) {
       //Server response into variable
       print(response.body);
-      Get.off(() => HomeScreen());
+      // Get.off(() => HomeScreen());
+      var msg = jsonDecode(response.body);
+      print(msg);
+
+      //Check Login Status
+      if (msg['loginStatus'] == true) {
+        setState(() {});
+
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setBool('isLoggedIn', true);
+
+        await prefs.setString(
+          'id',
+          msg['akun']['id'],
+        );
+        await prefs.setString(
+          'nama',
+          msg['akun']['nama'],
+        );
+        await prefs.setString(
+          'email',
+          msg['akun']['email'],
+        );
+        await prefs.setString(
+          'password',
+          msg['akun']['password'],
+        );
+        await prefs.setString(
+          'hobi',
+          msg['akun']['hobi'],
+        );
+        await prefs.setString(
+          'id_role',
+          msg['akun']['id_role'],
+        );
+
+        Get.to(() => HomeScreen());
+      } else {
+        setState(() {
+          print("Gagal bre");
+
+          //Show Error Message
+          showMessage(msg["message"]);
+        });
+      }
+    } else {
+      setState(() {
+        showMessage("Error during connecting to server");
+      });
     }
+  }
+
+  Future<void> showMessage(String _msg) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(_msg),
+          actions: <Widget>[
+            TextButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   bool _showPassword = true;
