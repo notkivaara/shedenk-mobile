@@ -8,4 +8,5 @@ class RegisterPageController extends GetxController {
   final TelpController = TextEditingController();
   final PasswordOneController = TextEditingController();
   final PasswordTwoController = TextEditingController();
+  final ProfileImageController = TextEditingController();
 }
