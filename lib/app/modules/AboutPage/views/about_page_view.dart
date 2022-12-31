@@ -102,7 +102,7 @@ class _AboutPageState extends State<AboutPage> {
                       },
                       child: SvgPicture.asset(
                         'assets/icons/wa.svg',
-                        height: 40,
+                        height: 35,
                       ),
                     ),
                     SizedBox(
@@ -115,7 +115,7 @@ class _AboutPageState extends State<AboutPage> {
                       },
                       child: SvgPicture.asset(
                         'assets/icons/fb.svg',
-                        height: 40,
+                        height: 35,
                       ),
                     ),
                     SizedBox(
@@ -129,7 +129,7 @@ class _AboutPageState extends State<AboutPage> {
                       },
                       child: SvgPicture.asset(
                         'assets/icons/ig.svg',
-                        height: 40,
+                        height: 35,
                       ),
                     ),
                     SizedBox(
@@ -146,7 +146,7 @@ class _AboutPageState extends State<AboutPage> {
                       },
                       child: SvgPicture.asset(
                         'assets/icons/gmail.svg',
-                        height: 40,
+                        height: 35,
                       ),
                     ),
                     SizedBox(
@@ -164,7 +164,7 @@ class _AboutPageState extends State<AboutPage> {
                       },
                       child: SvgPicture.asset(
                         'assets/icons/gmaps.svg',
-                        height: 40,
+                        height: 35,
                       ),
                     ),
                   ],

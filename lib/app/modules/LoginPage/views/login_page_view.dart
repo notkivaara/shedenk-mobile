@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:shedenk_mobile/app/modules/EditProfilePage/views/edit_profile_page_view.dart';
 import 'package:shedenk_mobile/app/modules/ForgotPasswordPage/views/forgot_password_page_view.dart';
 import 'package:shedenk_mobile/app/modules/LoginPage/controllers/login_page_controller.dart';
 import 'package:shedenk_mobile/app/modules/ProfilePage/views/profile_page_view.dart';
@@ -31,15 +32,13 @@ class _LoginPageState extends State<LoginPage> {
 
     if (response.statusCode == 200) {
       //Server response into variable
-      print(response.body);
+      // print(response.body);
       // Get.off(() => HomeScreen());
-      var msg = jsonDecode(response.body);
-      print(msg);
+      final msg = jsonDecode(response.body);
+      print(msg['akun']['id']);
 
       //Check Login Status
       if (msg['loginStatus'] == true) {
-        setState(() {});
-
         final prefs = await SharedPreferences.getInstance();
         prefs.setBool('isLoggedIn', true);
 
@@ -67,12 +66,19 @@ class _LoginPageState extends State<LoginPage> {
           'id_role',
           msg['akun']['id_role'],
         );
-
-        Get.to(() => HomeScreen());
+         final myMapPref = json.encode(
+          {
+            'id': '${msg['akun']['id']}',
+            'nama': '${msg['akun']['nama']}',
+            'email': '${msg['akun']['email']}',
+            'password': '${msg['akun']['password']}',
+            'hobi': '${msg['akun']['hobi']}',
+          },
+        );
+        prefs.setString('authData', myMapPref);
+        // Get.off(() => EditProfilePage());
       } else {
         setState(() {
-          print("Gagal bre");
-
           //Show Error Message
           showMessage(msg["message"]);
         });
@@ -81,6 +87,10 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         showMessage("Error during connecting to server");
       });
+    }
+    Future<void> autoLogin() async {
+      final sharedPref = await SharedPreferences.getInstance();
+      final myData = sharedPref.get('authData') as Map<String, dynamic>;
     }
   }
 

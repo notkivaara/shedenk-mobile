@@ -259,26 +259,20 @@ class _FormChangePasswordState extends State<FormChangePassword> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              controller: widget.SettingController.PasswordLamaController,
-              obscureText: false,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  labelText: "Kata Sandi Lama"),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 8, top: 4),
-              child: _countCharacter1 < 8 || _countCharacter1 > 16
-                  ? Text(
-                      'minimal 8 - 16 karakter',
-                      style: TextStyle(color: Colors.red),
-                    )
-                  : Text(
-                      'Password telah memenuhi syarat',
-                      style: TextStyle(color: Colors.green),
-                    ),
-            ),
+            textfield(widget.SettingController.PasswordLamaController, false,
+                'Kata Sandi Lama'),
+            // Container(
+            //   margin: EdgeInsets.only(left: 8, top: 4),
+            //   child: _countCharacter1 < 8 || _countCharacter1 > 16
+            //       ? Text(
+            //           'minimal 8 - 16 karakter',
+            //           style: TextStyle(color: Colors.red),
+            //         )
+            //       : Text(
+            //           'Password telah memenuhi syarat',
+            //           style: TextStyle(color: Colors.green),
+            //         ),
+            // ),
           ],
         ),
         SizedBox(
@@ -287,26 +281,28 @@ class _FormChangePasswordState extends State<FormChangePassword> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              controller: widget.SettingController.PasswordBaruController,
-              obscureText: false,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  labelText: "Kata Sandi Baru"),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 8, top: 4),
-              child: _countCharacter2 < 8 || _countCharacter2 > 16
-                  ? Text(
-                      'minimal 8 - 16 karakter',
-                      style: TextStyle(color: Colors.red),
-                    )
-                  : Text(
-                      'Password telah memenuhi syarat',
-                      style: TextStyle(color: Colors.green),
-                    ),
-            ),
+            textfield(widget.SettingController.PasswordBaruController, false,
+                'Kata Sandi Baru'),
+            // TextField(
+            //   controller: widget.SettingController.PasswordBaruController,
+            //   obscureText: false,
+            //   decoration: InputDecoration(
+            //       border: OutlineInputBorder(
+            //           borderRadius: BorderRadius.circular(10)),
+            //       labelText: "Kata Sandi Baru"),
+            // ),
+            // Container(
+            //   margin: EdgeInsets.only(left: 8, top: 4),
+            //   child: _countCharacter2 < 8 || _countCharacter2 > 16
+            //       ? Text(
+            //           'minimal 8 - 16 karakter',
+            //           style: TextStyle(color: Colors.red),
+            //         )
+            //       : Text(
+            //           'Password telah memenuhi syarat',
+            //           style: TextStyle(color: Colors.green),
+            //         ),
+            // ),
           ],
         ),
         SizedBox(
@@ -315,20 +311,22 @@ class _FormChangePasswordState extends State<FormChangePassword> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              controller: widget.SettingController.KonfirmasiPasswordController,
-              obscureText: false,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  labelText: "Konfirmasi Kata Sandi"),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 8, top: 4),
-              child: _confirmPassword
-                  ? Text('Mantab', style: TextStyle(color: Colors.green))
-                  : Text('Salah', style: TextStyle(color: Colors.red)),
-            ),
+            textfield(widget.SettingController.KonfirmasiPasswordController,
+                false, 'Masukkan Ulang Kata Sandi Baru'),
+            // TextField(
+            //   controller: widget.SettingController.KonfirmasiPasswordController,
+            //   obscureText: false,
+            //   decoration: InputDecoration(
+            //       border: OutlineInputBorder(
+            //           borderRadius: BorderRadius.circular(10)),
+            //       labelText: "Konfirmasi Kata Sandi"),
+            // ),
+            // Container(
+            //   margin: EdgeInsets.only(left: 8, top: 4),
+            //   child: _confirmPassword
+            //       ? Text('Benar', style: TextStyle(color: Colors.green))
+            //       : Text('Salah', style: TextStyle(color: Colors.red)),
+            // ),
           ],
         ),
         SizedBox(
@@ -336,10 +334,6 @@ class _FormChangePasswordState extends State<FormChangePassword> {
         ),
         ElevatedButton(
           onPressed: () {
-            print(widget.SettingController.PasswordLamaController.value.text);
-            print(widget.SettingController.PasswordBaruController.value.text);
-            print(widget
-                .SettingController.KonfirmasiPasswordController.value.text);
             Get.defaultDialog(
               contentPadding: EdgeInsets.all(10),
               title: '',
@@ -384,15 +378,27 @@ class _FormChangePasswordState extends State<FormChangePassword> {
           },
           child: Text("Simpan",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(MediaQuery.of(context).size.width, 50),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  TextField textfield(controller, bool obsuretxt, String text) {
+    return TextField(
+      controller: controller,
+      obscureText: obsuretxt,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.grey.shade200,
+        border: InputBorder.none,
+        hintText: text,
+      ),
     );
   }
 }

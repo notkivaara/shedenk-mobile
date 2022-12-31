@@ -1,13 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shedenk_mobile/app/modules/EditProfilePage/controllers/edit_profile_page_controller.dart';
-import 'package:shedenk_mobile/app/modules/ProfilePage/views/profile_page_view.dart';
-import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
 
 class EditProfilePage extends StatefulWidget {
   // final Function(ImageSource source) onTap;
@@ -19,6 +21,33 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final FieldEditProfileController = Get.put(EditProfilePageController());
+
+  String? id;
+  String? nama;
+  String? email;
+  String? password;
+  String? hobi;
+
+  Future getDataProfile() async {
+    try {
+      final res = await http.get(
+          Uri.parse("http://10.0.2.2/shedenk-web/service/loginservice.php"));
+
+      if (res.statusCode == 200) {
+        return jsonEncode(res.body);
+        Iterable it = jsonDecode(res.body);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getDataProfile();
+  }
+
   File? _image;
   Future _chooseImage(ImageSource source) async {
     final image = await ImagePicker().pickImage(source: source);
@@ -39,8 +68,45 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> editProfile() async {
+      var url =
+          Uri.parse("http://10.0.2.2/shedenk-web/service/loginservice.php");
+      var response = await http.post(url, body: {
+        "nama": FieldEditProfileController.NamaController.text.toString(),
+        "email": FieldEditProfileController.EmailController.text.toString(),
+        "password":
+            FieldEditProfileController.PasswordForConfirm.text.toString(),
+        "hobi": FieldEditProfileController.HobiController.text.toString(),
+      });
+      var data = jsonDecode(response.body);
+      // print(dataJadi);
+      if (data == "gagal") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("data sudah ada")),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Edit Berhasil")),
+        );
+
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString(
+            'nama', FieldEditProfileController.NamaController.text.toString());
+        await prefs.setString('email',
+            FieldEditProfileController.EmailController.text.toString());
+        await prefs.setString('password',
+            FieldEditProfileController.PasswordForConfirm.text.toString());
+        await prefs.setString(
+            'hobi', FieldEditProfileController.HobiController.text.toString());
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
+        leading: Icon(
+          Icons.arrow_back,
+          color: Colors.black,
+        ),
         title: Text(
           'Edit Profile',
           style: TextStyle(color: Colors.black),
@@ -169,92 +235,99 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 SizedBox(
                   height: 20,
                 ),
-                TextField(
-                  controller: FieldEditProfileController.UsernameController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      labelText: "Username"),
-                ),
+                textformfield(
+                    FieldEditProfileController.NamaController, 'Nama', false),
                 SizedBox(
                   height: 10,
                 ),
-                TextField(
-                  controller: FieldEditProfileController.HobiController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      labelText: "Hobi"),
-                ),
+                textformfield(
+                    FieldEditProfileController.EmailController, 'Email', false),
+                // TextField(
+                //   controller: FieldEditProfileController.HobiController,
+                //   decoration: InputDecoration(
+                //       border: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(10)),
+                //       labelText: "Hobi"),
+                // ),
                 SizedBox(
                   height: 10,
                 ),
-                TextField(
-                  controller: FieldEditProfileController.EmailController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      labelText: "Email"),
-                ),
+                textformfield(
+                    FieldEditProfileController.HobiController, 'Hobi', false),
+                // TextField(
+                //   controller: FieldEditProfileController.EmailController,
+                //   decoration: InputDecoration(
+                //       border: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(10)),
+                //       labelText: "Email"),
+                // ),
                 SizedBox(
                   height: 10,
                 ),
-                TextField(
-                  controller: FieldEditProfileController.NomorTeleponController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      labelText: "Nomor Telepon"),
-                ),
+                textformfield(FieldEditProfileController.PasswordForConfirm,
+                    'Masukkan Password', true),
+                // TextField(
+                //   controller: FieldEditProfileController.NomorTeleponController,
+                //   decoration: InputDecoration(
+                //       border: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(10)),
+                //       labelText: "Nomor Telepon"),
+                // ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // TextField(
+                //   controller: FieldEditProfileController.PasswordForConfirm,
+                //   decoration: InputDecoration(
+                //       border: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(10)),
+                //       labelText:
+                //           "Masukkan Password untuk Konfirmasi Perubahan"),
+                // ),
                 SizedBox(
                   height: 10,
                 ),
-                TextField(
-                  controller: FieldEditProfileController.PasswordForConfirm,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      labelText:
-                          "Masukkan Password untuk Konfirmasi Perubahan"),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width,
-                  child: ElevatedButton(
-                    // style: ,
-                    onPressed: () {
-                      print('USERNAME = ' +
-                          FieldEditProfileController
-                              .UsernameController.value.text);
-                      print('HOBI = ' +
-                          FieldEditProfileController.HobiController.value.text);
-                      print('EMAIL = ' +
-                          FieldEditProfileController
-                              .EmailController.value.text);
-                      print('NOMOR TELEPON = ' +
-                          FieldEditProfileController
-                              .NomorTeleponController.value.text);
-                      print('KATA SANDI = ' +
-                          FieldEditProfileController
-                              .PasswordForConfirm.value.text);
-                      // Get.back();
-                    },
-                    child: Text("Simpan",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                    style: ElevatedButton.styleFrom(
-                        // minimumSize: Size.fromHeight(40),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                  ),
+                ElevatedButton(
+                  // style: ,
+                  onPressed: () {
+                    // editProfile();
+                    getDataProfile();
+                  },
+                  child: Text("Simpan",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: Size(MediaQuery.of(context).size.width, 50),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
                 ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  TextFormField textformfield(controller, String text, bool obsuretxt) {
+    return TextFormField(
+      initialValue: nama,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "Data tidak boleh kosong";
+        } else {
+          return null;
+        }
+      },
+      obscureText: obsuretxt,
+      controller: controller,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.grey.shade200,
+        border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(16)),
+        hintText: text,
       ),
     );
   }
