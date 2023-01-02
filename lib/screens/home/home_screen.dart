@@ -7,10 +7,80 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:shedenk_mobile/app/modules/CartPage/views/cart_page_view.dart';
+import 'package:shedenk_mobile/app/modules/LoginPage/views/login_page_view.dart';
+import '../../app/modules/AboutPage/views/about_page_view.dart';
+import '../../app/modules/ProfilePage/views/profile_page_view.dart';
 import 'components/top_navbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
 import 'components/body.dart';
+
+class MainPage extends StatefulWidget {
+  @override
+  State<MainPage> createState() => MainPageState();
+}
+
+class MainPageState extends State<MainPage> {
+  static bool isShow = false;
+  int _selectedIndex = 0;
+
+  String nama = "";
+  String email = "";
+  // String noTe = "";
+
+  Future getNama() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      nama = (prefs.getString('nama') ?? "");
+      email = (prefs.getString('email') ?? "");
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getNama();
+  }
+
+  final List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(),
+    AboutPage(),
+    ProfilePage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Beranda',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.error),
+            label: 'Tentang',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Akun',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onItemTapped,
+      ),
+      body: _widgetOptions[_selectedIndex],
+    );
+  }
+}
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -19,6 +89,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   static bool isShow = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,11 +143,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class kategori extends StatelessWidget {
-  const kategori({
-    Key? key,
-  }) : super(key: key);
+class kategori extends StatefulWidget {
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
+  @override
+  State<kategori> createState() => _kategoriState();
+}
+
+class _kategoriState extends State<kategori> {
   @override
   Widget build(BuildContext context) {
     return Container(

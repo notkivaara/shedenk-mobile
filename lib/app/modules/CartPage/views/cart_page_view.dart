@@ -30,7 +30,7 @@ class CartPageState extends State<CartPage> {
                 children: [
                   Text('Total'),
                   Text(
-                    'Rp 000.000,00',
+                    'Rp 100.000,00',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -136,7 +136,9 @@ class CartPageState extends State<CartPage> {
                       height: 80,
                       width: 80,
                       decoration: BoxDecoration(
-                          color: Colors.amber,
+                          // color: ,
+                          image: DecorationImage(
+                              image: AssetImage('assets/img/about1.jpg')),
                           borderRadius: BorderRadius.circular(8)),
                     ),
                     SizedBox(
@@ -147,7 +149,7 @@ class CartPageState extends State<CartPage> {
                       children: [
                         Text("Nama Barang"),
                         Text(
-                          "Rp 000.000,00",
+                          "Rp 100.000,00",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
