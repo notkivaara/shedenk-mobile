@@ -10,7 +10,6 @@ import 'package:get_cli/common/utils/json_serialize/sintaxe.dart';
 import 'package:shedenk_mobile/app/modules/EditProfilePage/views/edit_profile_page_view.dart';
 import 'package:shedenk_mobile/app/modules/LoginPage/views/login_page_view.dart';
 import 'package:shedenk_mobile/screens/home/home_screen.dart';
-// import 'package:widgets/divider.dart';
 
 import '../controllers/profile_page_controller.dart';
 import 'package:flutter/widgets.dart';

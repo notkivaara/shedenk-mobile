@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:dropdown_search/dropdown_search.dart';
@@ -13,6 +14,7 @@ import '../../app/modules/ProfilePage/views/profile_page_view.dart';
 import 'components/top_navbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 import 'components/body.dart';
 
@@ -24,24 +26,6 @@ class MainPage extends StatefulWidget {
 class MainPageState extends State<MainPage> {
   static bool isShow = false;
   int _selectedIndex = 0;
-
-  String nama = "";
-  String email = "";
-  // String noTe = "";
-
-  Future getNama() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      nama = (prefs.getString('nama') ?? "");
-      email = (prefs.getString('email') ?? "");
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getNama();
-  }
 
   final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
@@ -88,7 +72,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static bool isShow = false;
+  bool isShow = false;
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(children: [
         BodyHome(),
         isShow ? kategori() : Container(),
+        
       ]),
     );
   }

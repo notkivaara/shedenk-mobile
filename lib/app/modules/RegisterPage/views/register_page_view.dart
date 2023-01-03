@@ -30,8 +30,8 @@ class _RegisterPageState extends State<RegisterPage> {
       // "no_hp": nohp.text,
       // "role": "2",
     });
-    // print('berhasil');
-    // Get.off(() => LoginPage());
+    print('berhasil');
+    Get.off(() => LoginPage());
   }
 
   // File? _image;
@@ -196,112 +196,116 @@ class _RegisterPageState extends State<RegisterPage> {
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
-              Column(
-                children: [
-                  Stack(
-                    children: [
-                      Container(
-                        width: 150,
-                        height: 150,
-                        // color: Colors.grey.withOpacity(0.3),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          border: Border.all(
-                              width: 2,
-                              style: BorderStyle.solid,
-                              color: Colors.grey.shade400),
-                          shape: BoxShape.circle,
-                          // image: DecorationImage(
-                          //   fit: BoxFit.cover,
-                          //   image: ,
-                          // ),
-                        ),
-                        child: Center(
-                          child: Text('No Profile'),
-                        ),
-                      ),
-                      Positioned(
-                        right: 0,
-                        bottom: 0,
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.bottomSheet(
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.15,
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 30,
-                                        child: InkWell(
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              "Ambil Gambar",
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                          ),
-                                          splashColor: Colors.grey,
-                                          onTap: () {
-                                            sendImage(ImageSource.camera);
-                                          },
-                                        ),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 30,
-                                        margin: EdgeInsets.only(top: 10),
-                                        child: InkWell(
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              "Pilih Gambar",
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                          ),
-                                          splashColor: Colors.grey,
-                                          onTap: () {
-                                            sendImage(ImageSource.gallery);
-                                            print("ea");
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                backgroundColor: Colors.white);
-                          },
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            padding: EdgeInsets.all(6),
-                            // color: Colors.blue,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(width: 4, color: Colors.white),
-                                color: Colors.blue),
+              // Column(
+              //   children: [
+              //     Stack(
+              //       children: [
+              //         Container(
+              //           width: 150,
+              //           height: 150,
+              //           // color: Colors.grey.withOpacity(0.3),
+              //           decoration: BoxDecoration(
+              //             color: Colors.grey.shade100,
+              //             border: Border.all(
+              //                 width: 2,
+              //                 style: BorderStyle.solid,
+              //                 color: Colors.grey.shade400),
+              //             shape: BoxShape.circle,
+              //             // image: DecorationImage(
+              //             //   fit: BoxFit.cover,
+              //             //   image: ,
+              //             // ),
+              //           ),
+              //           child: Center(
+              //             child: Text('No Profile'),
+              //           ),
+              //         ),
+              //         Positioned(
+              //           right: 0,
+              //           bottom: 0,
+              //           child: GestureDetector(
+              //             onTap: () {
+              //               Get.bottomSheet(
+              //                   Container(
+              //                     height:
+              //                         MediaQuery.of(context).size.height * 0.15,
+              //                     padding: EdgeInsets.all(10),
+              //                     child: Column(
+              //                       crossAxisAlignment:
+              //                           CrossAxisAlignment.start,
+              //                       children: [
+              //                         Container(
+              //                           width:
+              //                               MediaQuery.of(context).size.width,
+              //                           height: 30,
+              //                           child: InkWell(
+              //                             child: Align(
+              //                               alignment: Alignment.centerLeft,
+              //                               child: Text(
+              //                                 "Ambil Gambar",
+              //                                 style: TextStyle(fontSize: 16),
+              //                               ),
+              //                             ),
+              //                             splashColor: Colors.grey,
+              //                             onTap: () {
+              //                               sendImage(ImageSource.camera);
+              //                             },
+              //                           ),
+              //                         ),
+              //                         Container(
+              //                           width:
+              //                               MediaQuery.of(context).size.width,
+              //                           height: 30,
+              //                           margin: EdgeInsets.only(top: 10),
+              //                           child: InkWell(
+              //                             child: Align(
+              //                               alignment: Alignment.centerLeft,
+              //                               child: Text(
+              //                                 "Pilih Gambar",
+              //                                 style: TextStyle(fontSize: 16),
+              //                               ),
+              //                             ),
+              //                             splashColor: Colors.grey,
+              //                             onTap: () {
+              //                               sendImage(ImageSource.gallery);
+              //                               print("ea");
+              //                             },
+              //                           ),
+              //                         ),
+              //                       ],
+              //                     ),
+              //                   ),
+              //                   backgroundColor: Colors.white);
+              //             },
+              //             child: Container(
+              //               height: 40,
+              //               width: 40,
+              //               padding: EdgeInsets.all(6),
+              //               // color: Colors.blue,
+              //               decoration: BoxDecoration(
+              //                   shape: BoxShape.circle,
+              //                   border:
+              //                       Border.all(width: 4, color: Colors.white),
+              //                   color: Colors.blue),
 
-                            child: Icon(
-                              Icons.edit,
-                              size: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
+              //               child: Icon(
+              //                 Icons.edit,
+              //                 size: 20,
+              //                 color: Colors.white,
+              //               ),
+              //             ),
+              //           ),
+              //         )
+              //       ],
+              //     ),
+              //   ],
+              // ),
+              Image.asset(
+                "assets/img/logo.png",
+                height: 150,
               ),
               SizedBox(
-                height: 16,
+                height: 20,
               ),
               TextField(
                 controller: FieldRegisterController.NamaController,
