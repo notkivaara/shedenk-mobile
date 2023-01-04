@@ -34,10 +34,25 @@ class _BodyHomeState extends State<BodyHome> {
   String? res;
 
   Future getDataProduk() async {
-    final response = await http.get(
-        Uri.parse("http://10.0.2.2/shedenk-web/service/produkservice.php"));
+    final response = await http
+        .get(Uri.parse("http://shedenk.wstif3d.id/service/produkservice.php"));
     if (response.statusCode == 200) {
       final msg = jsonDecode(response.body);
+      setState(() {
+        list = msg;
+      });
+      return produktestFromJson(response.body.toString());
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  Future getDataKategori() async {
+    final response = await http.get(
+        Uri.parse("http://shedenk.wstif3d.id/service/kategoriservice.php"));
+    if (response.statusCode == 200) {
+      final msg = jsonDecode(response.body);
+      print(msg);
       setState(() {
         // print(msg[0]['gambar'][1]['nama']);
         list = msg;
@@ -56,11 +71,11 @@ class _BodyHomeState extends State<BodyHome> {
     data.then((value) {
       setState(() {
         data2 = value;
-        // list = data2
-        //     .where((element) => element.gambar[0].idProduk == data2[0].id)
-        //     .map((element) => element.gambar[0])
-        //     .toList();
-        // print(list);
+        list = data2
+            .where((element) => element.gambar[0].idProduk == data2[0].id)
+            .map((element) => element.gambar[0])
+            .toList();
+        print(list);
       });
     });
     super.initState();
@@ -92,38 +107,6 @@ class _BodyHomeState extends State<BodyHome> {
                     }),
               ),
             ),
-            // Container(
-            //   // color: Colors.amber,
-            //   height: 40,
-            //   width: 14.0 * list.length,
-            //   child: ListView.builder(
-            //       scrollDirection: Axis.horizontal,
-            //       itemCount: list.length,
-            //       itemBuilder: (BuildContext context, index) {
-            //         return Row(
-            //           children: [
-            //             GestureDetector(
-            //               onTap: () {
-            //                 _controller.animateToPage(index);
-            //               },
-            //               child: Container(
-            //                 // color: Colors.amber,
-            //                 height: 10,
-            //                 width: 10,
-            //                 decoration: BoxDecoration(
-            //                   shape: BoxShape.circle,
-            //                   color: Colors.white
-            //                       .withOpacity(_current == index ? 0.9 : 0.4),
-            //                 ),
-            //               ),
-            //             ),
-            //             SizedBox(
-            //               width: 4,
-            //             )
-            //           ],
-            //         );
-            //       }),
-            // ),
           ],
         ),
         Padding(
@@ -155,9 +138,7 @@ class _BodyHomeState extends State<BodyHome> {
             return GestureDetector(
               onTap: () {
                 Get.to(() => DetailsScreen(
-                    list: list![index]['gambar']
-            .map((d) => d['nama'])
-            .toList(),
+                    list: list![index]['gambar'].map((d) => d['nama']).toList(),
                     // file: data2[index].gambar[0].nama,
                     id: data2[index].id,
                     nama: data2[index].nama,
@@ -166,24 +147,63 @@ class _BodyHomeState extends State<BodyHome> {
                     status: data2[index].status));
               },
               child: Container(
-                color: Colors.amber,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(.1),
+                        spreadRadius: .1,
+                        blurRadius: 5,
+                        offset: Offset(0, 5))
+                  ],
+                ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
+                      flex: 2,
                       child: Container(
-                        child: data2[index].gambar.isEmpty
-                            ? Center(child: Text("Tidak ada foto"))
-                            : Image.network(
-                                "http://10.0.2.2/shedenk-web/upload/${data2[index].gambar[0].nama}",
-                                fit: BoxFit.cover,
-                              ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(0),
+                              bottomRight: Radius.circular(0),
+                              topLeft: Radius.circular(8),
+                              topRight: Radius.circular(8)),
+                          color: Colors.grey.shade200,
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(0),
+                              bottomRight: Radius.circular(0),
+                              topLeft: Radius.circular(8),
+                              topRight: Radius.circular(8)),
+                          child: data2[index].gambar.isEmpty
+                              ? Center(child: Text("Tidak ada foto"))
+                              : Image.network(
+                                  "http://shedenk.wstif3d.id/upload/${data2[index].gambar[0].nama}",
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
                       ),
                     ),
-                    Text(
-                      data2[index].nama,
-                      style: TextStyle(fontSize: 16),
+                    Container(
+                      padding: EdgeInsets.only(left: 8),
+                      margin: EdgeInsets.only(top: 8),
+                      child: Text(
+                        data2[index].nama,
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
-                    Text(data2[index].status),
+                    Container(
+                      padding: EdgeInsets.only(left: 8),
+                      margin: EdgeInsets.only(bottom: 6),
+                      child: Text(
+                        'Rp ' + data2[index].harga,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ],
                 ),
               ),

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartPage extends StatefulWidget {
+  List<Widget> keranjang;
+  CartPage({required this.keranjang});
+
   @override
   State<CartPage> createState() => CartPageState();
 }
@@ -9,6 +12,54 @@ class CartPage extends StatefulWidget {
 class CartPageState extends State<CartPage> {
   bool? value = false;
   bool isShowDetailPesanan = false;
+
+  void _addwidget() {
+    setState(() {
+      Container(
+        padding: EdgeInsets.all(8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Checkbox(
+                activeColor: Colors.blue,
+                value: value,
+                onChanged: (Value) {
+                  setState(() {
+                    this.value = Value;
+                  });
+                }),
+            Container(
+              height: 80,
+              width: 80,
+              decoration: BoxDecoration(
+                  // color: ,
+                  image: DecorationImage(
+                      image: AssetImage('assets/img/about1.jpg')),
+                  borderRadius: BorderRadius.circular(8)),
+            ),
+            SizedBox(
+              width: 8,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(''),
+                Text(
+                  '',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text('Hapus dari keranjang'),
+                )
+              ],
+            )
+          ],
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,53 +168,19 @@ class CartPageState extends State<CartPage> {
       ),
       body: Stack(
         children: [
-          ListView(
-            children: [
-              Container(
-                padding: EdgeInsets.all(8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Checkbox(
-                        activeColor: Colors.blue,
-                        value: value,
-                        onChanged: (Value) {
-                          setState(() {
-                            this.value = Value;
-                          });
-                        }),
-                    Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                          // color: ,
-                          image: DecorationImage(
-                              image: AssetImage('assets/img/about1.jpg')),
-                          borderRadius: BorderRadius.circular(8)),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Nama Barang"),
-                        Text(
-                          "Rp 100.000,00",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text('Hapus dari keranjang'),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+          GridView.builder(
+              padding: EdgeInsets.all(8),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+              ),
+              itemCount: widget.keranjang.length,
+              shrinkWrap: true,
+              physics: const ScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                return Container();
+              }),
           Positioned(
             bottom: 0,
             child: Stack(
