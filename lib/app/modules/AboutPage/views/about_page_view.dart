@@ -39,9 +39,9 @@ class _AboutPageState extends State<AboutPage> {
       appBar: AppBar(
         title: Text(
           'Tentang Toko',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
       ),
       body: ListView(
@@ -80,7 +80,7 @@ class _AboutPageState extends State<AboutPage> {
                   height: 8,
                 ),
                 Text(
-                    "Shedenk store merupakan toko thrift yang menyediakan berbagai macam......"),
+                    "Shedenk Thrift Shop adalah Sebuah Toko yang bergerak di bidang Pakaian yang dimana Produk Pakainnya Sendiri Merupakan Pakaian Bekas Berkualitas. Pada tahun 2015 Shedenk Thrift Shop Mulai Dibuka, pada masa itu Produk Thrift menjadi pakaian tren anak muda"),
                 SizedBox(
                   height: 16,
                 ),

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -57,7 +55,8 @@ class ItemCard extends StatelessWidget {
               padding: EdgeInsets.only(left: 8),
               margin: EdgeInsets.only(top: 4),
               child: Text(
-                product.title,
+                // product.title,
+                'jal',
                 style: TextStyle(color: Colors.black),
               ),
             ),

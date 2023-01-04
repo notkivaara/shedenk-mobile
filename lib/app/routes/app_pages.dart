@@ -68,7 +68,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EDIT_PROFILE_PAGE,
-      page: () => CartPage(),
+      page: () => CartPage(keranjang: []),
       // binding: EditProfilePageBinding(),
     ),
   ];

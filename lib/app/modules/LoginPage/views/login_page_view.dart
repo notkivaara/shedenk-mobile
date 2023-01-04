@@ -7,6 +7,7 @@ import 'package:shedenk_mobile/app/modules/EditProfilePage/views/edit_profile_pa
 import 'package:shedenk_mobile/app/modules/ForgotPasswordPage/views/forgot_password_page_view.dart';
 import 'package:shedenk_mobile/app/modules/LoginPage/controllers/login_page_controller.dart';
 import 'package:shedenk_mobile/app/modules/ProfilePage/views/profile_page_view.dart';
+import 'package:shedenk_mobile/main.dart';
 import 'package:shedenk_mobile/screens/home/home_screen.dart';
 import '../../RegisterPage/views/register_page_view.dart';
 import 'package:get/get.dart';
@@ -28,14 +29,13 @@ class _LoginPageState extends State<LoginPage> {
         "http://10.0.2.2/shedenk-web/service/loginservice.php?email=${FieldLoginController.UsernameController.text.toString()}&password=${FieldLoginController.PasswordController.text.toString()}");
 
     var response = await http.get(url);
-    print('kata kata');
 
     if (response.statusCode == 200) {
       //Server response into variable
       // print(response.body);
       // Get.off(() => HomeScreen());
       final msg = jsonDecode(response.body);
-      print(msg['akun']['id']);
+      // print(msg['akun']['id']);
 
       //Check Login Status
       if (msg['loginStatus'] == true) {
@@ -66,7 +66,11 @@ class _LoginPageState extends State<LoginPage> {
           'id_role',
           msg['akun']['id_role'],
         );
-         final myMapPref = json.encode(
+        // await prefs.setString(
+        //   'gambar',
+        //   msg['akun']['gambar'],
+        // );
+        final myMapPref = json.encode(
           {
             'id': '${msg['akun']['id']}',
             'nama': '${msg['akun']['nama']}',
@@ -76,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
           },
         );
         prefs.setString('authData', myMapPref);
-        // Get.off(() => EditProfilePage());
+        Get.off(() => MainPage());
       } else {
         setState(() {
           //Show Error Message
@@ -125,11 +129,13 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back),
-          color: Colors.black,
-        ),
+        // leading: IconButton(
+        //   onPressed: () {
+        //     Get.off(() => MainPage());
+        //   },
+        //   icon: Icon(Icons.arrow_back),
+        //   color: Colors.black,
+        // ),
         title: Text(
           "Masuk",
           style: TextStyle(color: Colors.black),
@@ -159,12 +165,23 @@ class _LoginPageState extends State<LoginPage> {
                 child: SizedBox(
                   width: 250,
                   height: 60,
-                  child: TextField(
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Data tidak boleh kosong";
+                      } else {
+                        return null;
+                      }
+                    },
                     controller: FieldLoginController.UsernameController,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        labelText: "Username"),
+                      filled: true,
+                      fillColor: Colors.grey.shade200,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(16)),
+                      hintText: 'Email',
+                    ),
                   ),
                 ),
               ),
@@ -173,17 +190,24 @@ class _LoginPageState extends State<LoginPage> {
                 child: SizedBox(
                   width: 250,
                   height: 60,
-                  child: TextField(
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Data tidak boleh kosong";
+                      } else {
+                        return null;
+                      }
+                    },
                     controller: FieldLoginController.PasswordController,
                     obscureText: true,
                     decoration: InputDecoration(
-                        suffixIcon: InkWell(
-                          // onTap: ,
-                          child: Icon(Icons.visibility),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        labelText: "Kata Sandi"),
+                      filled: true,
+                      fillColor: Colors.grey.shade200,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(16)),
+                      hintText: 'Kata Sandi',
+                    ),
                   ),
                 ),
               ),
