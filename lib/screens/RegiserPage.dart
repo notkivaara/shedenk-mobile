@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shedenk_mobile/app/modules/LoginPage/views/login_page_view.dart';
 import 'package:shedenk_mobile/screens/LoginPage.dart';
 
-class RegisterPage extends StatefulWidget {
+class Rp extends StatefulWidget {
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<Rp> createState() => _RpState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RpState extends State<Rp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

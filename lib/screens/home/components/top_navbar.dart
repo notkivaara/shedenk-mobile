@@ -12,6 +12,7 @@ class TopNavBar extends StatefulWidget {
 }
 
 class _TopNavBarState extends State<TopNavBar> {
+  final bool _isShow = false;
   @override
   void initState() {
     _focusNodes.forEach((node) {
@@ -41,34 +42,42 @@ AppBar topNavBar() {
   return AppBar(
     backgroundColor: Colors.white,
     leadingWidth: 100,
-    leading: DropdownSearch<Map<String, dynamic>>(
-      popupProps: PopupProps.menu(
-        itemBuilder: (context, item, isSelected) => ListTile(
-          title: Text(
-            item["category"].toString(),
-          ),
-        ),
+    leading: TextButton(
+      onPressed: () {
+      },
+      child: Text(
+        'Kategori',
+        style: TextStyle(color: Colors.black),
       ),
-      dropdownBuilder: (context, selectedItem) => Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: Text(
-          selectedItem?["category"].toString() ?? "Kategori",
-          style: TextStyle(color: Colors.black, fontSize: 13),
-        ),
-      ),
-      items: myList,
-      dropdownButtonProps: DropdownButtonProps(isVisible: false),
-      dropdownDecoratorProps: DropDownDecoratorProps(
-        dropdownSearchDecoration: InputDecoration(
-          border: UnderlineInputBorder(
-            borderSide: BorderSide(style: BorderStyle.none),
-          ),
-          enabledBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-        ),
-      ),
-      onChanged: (value) => print(value?["id"] ?? null),
     ),
+    // DropdownSearch<Map<String, dynamic>>(
+    //   popupProps: PopupProps.menu(
+    //     itemBuilder: (context, item, isSelected) => ListTile(
+    //       title: Text(
+    //         item["category"].toString(),
+    //       ),
+    //     ),
+    //   ),
+    //   dropdownBuilder: (context, selectedItem) => Padding(
+    //     padding: const EdgeInsets.only(top: 8.0),
+    //     child: Text(
+    //       selectedItem?["category"].toString() ?? "Kategori",
+    //       style: TextStyle(color: Colors.black, fontSize: 13),
+    //     ),
+    //   ),
+    //   items: myList,
+    //   dropdownButtonProps: DropdownButtonProps(isVisible: false),
+    //   dropdownDecoratorProps: DropDownDecoratorProps(
+    //     dropdownSearchDecoration: InputDecoration(
+    //       border: UnderlineInputBorder(
+    //         borderSide: BorderSide(style: BorderStyle.none),
+    //       ),
+    //       enabledBorder: InputBorder.none,
+    //       focusedBorder: InputBorder.none,
+    //     ),
+    //   ),
+    //   onChanged: (value) => print(value?["id"] ?? null),
+    // ),
     title: Container(
       height: 32.0,
       width: 222.0,
@@ -99,8 +108,12 @@ AppBar topNavBar() {
     ),
     actions: [
       Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Icon(Icons.shopping_cart_outlined, color: Colors.black),
+        padding: const EdgeInsets.fromLTRB(8.0, 0, 18.0, 0),
+        child: IconButton(
+          icon: Icon(Icons.shopping_cart_outlined),
+          color: Colors.black,
+          onPressed: () {},
+        ),
       ),
     ],
   );

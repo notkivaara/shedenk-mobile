@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:shedenk_mobile/app/modules/RegisterPage/views/register_page_view.dart';
 import 'package:shedenk_mobile/screens/RegiserPage.dart';
 import 'package:shedenk_mobile/screens/SettingPage.dart';
 import 'package:shedenk_mobile/screens/home/home_screen.dart';
 
-class LoginPage extends StatefulWidget {
+class Lp extends StatefulWidget {
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<Lp> createState() => _LpState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LpState extends State<Lp> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _KataSandiController = TextEditingController();
 
@@ -78,10 +79,10 @@ class _LoginPageState extends State<LoginPage> {
                     // controller: ,
                     // obscureText: ,
                     decoration: InputDecoration(
-                        suffixIcon: InkWell(
-                          // onTap: ,
-                          child: Icon(Icons.visibility),
-                        ),
+                        // suffixIcon: InkWell(
+                        //   // onTap: ,
+                        //   child: Icon(Icons.visibility),
+                        // ),s
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
                         labelText: "Kata Sandi"),
