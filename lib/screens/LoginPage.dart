@@ -79,10 +79,10 @@ class _LpState extends State<Lp> {
                     // controller: ,
                     // obscureText: ,
                     decoration: InputDecoration(
-                        suffixIcon: InkWell(
-                          // onTap: ,
-                          child: Icon(Icons.visibility),
-                        ),
+                        // suffixIcon: InkWell(
+                        //   // onTap: ,
+                        //   child: Icon(Icons.visibility),
+                        // ),s
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
                         labelText: "Kata Sandi"),

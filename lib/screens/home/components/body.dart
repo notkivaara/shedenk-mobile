@@ -25,7 +25,20 @@ class _BodyHomeState extends State<BodyHome> {
 
   final CarouselController _controller = CarouselController();
 
-  List<Widget> myData = [];
+  List<Widget> myData = [
+    Image.asset(
+      'assets/img/about1.jpg',
+      fit: BoxFit.cover,
+    ),
+    Image.asset(
+      'assets/img/about2.jpg',
+      fit: BoxFit.cover,
+    ),
+    Image.asset(
+      'assets/img/about3.jpg',
+      fit: BoxFit.fill,
+    ),
+  ];
   List? list;
   String? coba;
   String? imageData;
@@ -94,12 +107,13 @@ class _BodyHomeState extends State<BodyHome> {
                 items: myData,
                 carouselController: _controller,
                 options: CarouselOptions(
-                    // autoPlayInterval: Duration(seconds: 4),
-                    // autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    autoPlayInterval: Duration(seconds: 4),
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
                     autoPlay: true,
+                    disableCenter: true,
                     viewportFraction: 1,
                     enlargeCenterPage: false,
-                    aspectRatio: 2.0,
+                    aspectRatio: 2,
                     onPageChanged: (index, reason) {
                       setState(() {
                         _current = index;
@@ -107,13 +121,45 @@ class _BodyHomeState extends State<BodyHome> {
                     }),
               ),
             ),
+            Container(
+              // color: Colors.amber,
+              height: 40,
+              width: 14.0 * myData.length,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: myData.length,
+                  itemBuilder: (BuildContext context, index) {
+                    return Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            _controller.animateToPage(index);
+                          },
+                          child: Container(
+                            // color: Colors.amber,
+                            height: 10,
+                            width: 10,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white
+                                  .withOpacity(_current == index ? 0.9 : 0.4),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        )
+                      ],
+                    );
+                  }),
+            )
           ],
         ),
         Padding(
           padding: const EdgeInsets.only(top: 12, bottom: 8, left: 8, right: 8),
           child: Container(
             child: Text(
-              "Rekomendasi untuk anda",
+              "Kategori Saat Ini",
               style: Theme.of(context)
                   .textTheme
                   .headline6

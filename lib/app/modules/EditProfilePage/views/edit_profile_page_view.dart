@@ -83,7 +83,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     Future<void> editProfile() async {
-      var url = Uri.parse("http://10.0.2.2/shedenk-web/service/profile.php");
+      var url = Uri.parse("http://shedenk.wstif3d.id/service/profile.php");
       var response = await http.post(url, body: {
         "nama": FieldEditProfileController.NamaController.text.toString(),
         "email": FieldEditProfileController.EmailController.text.toString(),
@@ -255,12 +255,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   height: 20,
                 ),
                 textformfield(
-                    FieldEditProfileController.NamaController, nama, false),
+                    FieldEditProfileController.NamaController, 'nama', false),
                 SizedBox(
                   height: 10,
                 ),
                 textformfield(
-                    FieldEditProfileController.EmailController, email, false),
+                    FieldEditProfileController.EmailController, 'Email', false),
                 // TextField(
                 //   controller: FieldEditProfileController.HobiController,
                 //   decoration: InputDecoration(
@@ -272,7 +272,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   height: 10,
                 ),
                 textformfield(
-                    FieldEditProfileController.HobiController, hobi, false),
+                    FieldEditProfileController.HobiController, 'Hobi', false),
                 // TextField(
                 //   controller: FieldEditProfileController.EmailController,
                 //   decoration: InputDecoration(
@@ -284,7 +284,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   height: 10,
                 ),
                 textformfield(FieldEditProfileController.PasswordForConfirm,
-                    password, true),
+                    'Password', true),
                 // TextField(
                 //   controller: FieldEditProfileController.NomorTeleponController,
                 //   decoration: InputDecoration(

@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   List result = [];
   Future<void> _login() async {
     Uri url = Uri.parse(
-        "http://10.0.2.2/shedenk-web/service/loginservice.php?email=${FieldLoginController.UsernameController.text.toString()}&password=${FieldLoginController.PasswordController.text.toString()}");
+        "http://shedenk.wstif3d.id/service/loginservice.php?email=${FieldLoginController.UsernameController.text.toString()}&password=${FieldLoginController.PasswordController.text.toString()}");
 
     var response = await http.get(url);
 
@@ -138,13 +138,13 @@ class _LoginPageState extends State<LoginPage> {
         // ),
         title: Text(
           "Masuk",
-          style: TextStyle(color: Colors.black),
+          // style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
+        // backgroundColor: Colors.transparent,
+        // shadowColor: Colors.transparent,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         child: Container(
           alignment: Alignment.center,
           child: ListView(
@@ -160,55 +160,44 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 250,
-                  height: 60,
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Data tidak boleh kosong";
-                      } else {
-                        return null;
-                      }
-                    },
-                    controller: FieldLoginController.UsernameController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.grey.shade200,
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(16)),
-                      hintText: 'Email',
-                    ),
-                  ),
+              TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Data tidak boleh kosong";
+                  } else {
+                    return null;
+                  }
+                },
+                controller: FieldLoginController.UsernameController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(16)),
+                  hintText: 'Email',
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 250,
-                  height: 60,
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Data tidak boleh kosong";
-                      } else {
-                        return null;
-                      }
-                    },
-                    controller: FieldLoginController.PasswordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.grey.shade200,
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(16)),
-                      hintText: 'Kata Sandi',
-                    ),
-                  ),
+              SizedBox(
+                height: 8,
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Data tidak boleh kosong";
+                  } else {
+                    return null;
+                  }
+                },
+                controller: FieldLoginController.PasswordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(16)),
+                  hintText: 'Kata Sandi',
                 ),
               ),
               Padding(
@@ -238,7 +227,6 @@ class _LoginPageState extends State<LoginPage> {
                     // final isValidForm = ();
                     // if (_formKey.currentState!.validate()) {
                     _login();
-                    print('hiya');
                     // } else {
                     // print('Gagal');
                     // return null;
@@ -270,7 +258,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.off(() => RegisterPage());
+                      Get.to(() => RegisterPage());
                     },
                     child: Text(
                       "Daftar",
