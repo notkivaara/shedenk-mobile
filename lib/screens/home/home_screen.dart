@@ -46,15 +46,15 @@ class MainPageState extends State<MainPage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Beranda',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.error),
-            label: 'Tentang',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Akun',
+            label: '',
           ),
         ],
         currentIndex: _selectedIndex,
@@ -77,50 +77,49 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      // drawer: Drawer(),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        leadingWidth: 70,
-        leading: TextButton(
-          onPressed: () {
-            setState(() {
-              isShow = !isShow;
-            });
-          },
-          child: Text(
-            "Kategori",
-            style: TextStyle(color: Colors.black),
+          // backgroundColor: Colors.white,
+          // leadingWidth: 70,
+          // // leading: TextButton(
+          //   onPressed: () {
+          //     setState(() {
+          //       isShow = !isShow;
+          //     });
+          //   },
+          //   child: Text(
+          //     "Kategori",
+          //     style: TextStyle(color: Colors.black),
+          //   ),
+          // ),
+          // shadowColor: Colors.black.withOpacity(isShow ? 0 : 1),
+          title: Text('Dashboard')
+          // Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(5),
+          //       color: Colors.grey.shade200),
+          //   padding: EdgeInsets.only(left: 8),
+          //   child: TextField(
+          //     minLines: 1,
+          //     decoration: InputDecoration(
+          //       border: InputBorder.none,
+          //       icon: Icon(
+          //         Icons.search,
+          //         color: Colors.grey,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // actions: [
+          //   IconButton(
+          //     icon: Icon(Icons.shopping_cart_outlined),
+          //     color: Colors.black,
+          //     onPressed: () {},
+          //   ),
+          // ],
           ),
-        ),
-        shadowColor: Colors.black.withOpacity(isShow ? 0 : 1),
-        // title: Container(
-        //   width: MediaQuery.of(context).size.width,
-        //   decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(5),
-        //       color: Colors.grey.shade200),
-        //   padding: EdgeInsets.only(left: 8),
-        //   child: TextField(
-        //     minLines: 1,
-        //     decoration: InputDecoration(
-        //       border: InputBorder.none,
-        //       icon: Icon(
-        //         Icons.search,
-        //         color: Colors.grey,
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart_outlined),
-            color: Colors.black,
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: Stack(children: [
-        BodyHome(),
-      ]),
+      body: BodyHome(),
     );
   }
 }

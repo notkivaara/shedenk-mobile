@@ -9,7 +9,7 @@ class Product {
 
   Future<void> getDataProduk() async {
     Uri url = Uri.parse(
-        "http://10.0.2.2/shedenk-web/service/produkservice.php?list:$nama");
+        "http://shedenk.wstif3d.id/service/produkservice.php?list:$nama");
 
     var response = await http.get(url);
 

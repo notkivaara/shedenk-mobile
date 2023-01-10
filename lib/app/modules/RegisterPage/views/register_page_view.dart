@@ -20,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   // Future<void> _Register() async {
   Future<void> _Register() async {
     Uri url =
-        Uri.parse("http://10.0.2.2/shedenk-web/service/registerservice.php");
+        Uri.parse("http://shedenk.wstif3d.id/service/registerservice.php");
     var response = await http.post(url, body: {
       "nama": FieldRegisterController.NamaController.text.toString(),
       "email": FieldRegisterController.EmailController.text.toString(),
@@ -60,110 +60,110 @@ class _RegisterPageState extends State<RegisterPage> {
   //   return File(cropImage.path);
   // }
 
-  XFile? image;
+  // XFile? image;
 
-  final ImagePicker picker = ImagePicker();
+  // final ImagePicker picker = ImagePicker();
 
-  //we can upload image from camera or from gallery based on parameter
-  Future sendImage(ImageSource media) async {
-    var img = await picker.pickImage(source: media);
+  // //we can upload image from camera or from gallery based on parameter
+  // Future sendImage(ImageSource media) async {
+  //   var img = await picker.pickImage(source: media);
 
-    var uri = "http://10.0.2.2/shedenk-web/service/registerservice.php";
+  //   var uri = "http://shedenk.wstif3d.id/service/registerservice.php";
 
-    var request = http.MultipartRequest('POST', Uri.parse(uri));
+  //   var request = http.MultipartRequest('POST', Uri.parse(uri));
 
-    if (img != null) {
-      var pic = await http.MultipartFile.fromPath("image", img.path);
+  //   if (img != null) {
+  //     var pic = await http.MultipartFile.fromPath("image", img.path);
 
-      request.files.add(pic);
+  //     request.files.add(pic);
 
-      await request.send().then((result) {
-        http.Response.fromStream(result).then((response) {
-          var message = jsonDecode(response.body);
+  //     await request.send().then((result) {
+  //       http.Response.fromStream(result).then((response) {
+  //         var message = jsonDecode(response.body);
 
-          // show snackbar if input data successfully
-          final snackBar = SnackBar(content: Text(message['message']));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //         // show snackbar if input data successfully
+  //         final snackBar = SnackBar(content: Text(message['message']));
+  //         ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-          //get new list images
-          getImageServer();
-        });
-      }).catchError((e) {
-        print(e);
-      });
-    }
-  }
+  //         //get new list images
+  //         getImageServer();
+  //       });
+  //     }).catchError((e) {
+  //       print(e);
+  //     });
+  //   }
+  // }
 
-  Future getImageServer() async {
-    try {
-      final response = await http.get(
-          Uri.parse('http://10.0.2.2/shedenk-web/service/registerservice.php'));
+  // Future getImageServer() async {
+  //   try {
+  //     final response = await http.get(
+  //         Uri.parse('http://shedenk.wstif3d.id/service/registerservice.php'));
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
+  //     if (response.statusCode == 200) {
+  //       final data = jsonDecode(response.body);
 
-        setState(() {
-          image = data;
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  //       setState(() {
+  //         image = data;
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
-  @override
-  void initState() {
-    // ignore: todo
-    // TODO: implement initState
-    super.initState();
-    getImageServer();
-  }
+  // @override
+  // void initState() {
+  //   // ignore: todo
+  //   // TODO: implement initState
+  //   super.initState();
+  // //   getImageServer();
+  // // }
 
   //show popup dialog
-  void myAlert() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            title: Text('Please choose media to select'),
-            content: Container(
-              height: MediaQuery.of(context).size.height / 6,
-              child: Column(
-                children: [
-                  ElevatedButton(
-                    //if user click this button, user can upload image from gallery
-                    onPressed: () {
-                      Navigator.pop(context);
-                      sendImage(ImageSource.gallery);
-                    },
-                    child: Row(
-                      children: [
-                        Icon(Icons.image),
-                        Text('From Gallery'),
-                      ],
-                    ),
-                  ),
-                  ElevatedButton(
-                    //if user click this button. user can upload image from camera
-                    onPressed: () {
-                      Navigator.pop(context);
-                      sendImage(ImageSource.camera);
-                    },
-                    child: Row(
-                      children: [
-                        Icon(Icons.camera),
-                        Text('From Camera'),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
+  // void myAlert() {
+  //   showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           shape:
+  //               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+  //           title: Text('Please choose media to select'),
+  //           content: Container(
+  //             height: MediaQuery.of(context).size.height / 6,
+  //             child: Column(
+  //               children: [
+  //                 ElevatedButton(
+  //                   //if user click this button, user can upload image from gallery
+  //                   onPressed: () {
+  //                     Navigator.pop(context);
+  //                     sendImage(ImageSource.gallery);
+  //                   },
+  //                   child: Row(
+  //                     children: [
+  //                       Icon(Icons.image),
+  //                       Text('From Gallery'),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 ElevatedButton(
+  //                   //if user click this button. user can upload image from camera
+  //                   onPressed: () {
+  //                     Navigator.pop(context);
+  //                     sendImage(ImageSource.camera);
+  //                   },
+  //                   child: Row(
+  //                     children: [
+  //                       Icon(Icons.camera),
+  //                       Text('From Camera'),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         );
+  //       });
+  // }
 
   // void submitForm() async {
   //   String encodeImage = "";
@@ -179,18 +179,21 @@ class _RegisterPageState extends State<RegisterPage> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
             icon: Icon(Icons.arrow_back),
-            color: Colors.black,
+            color: Colors.white,
           ),
           title: Text(
             "Daftar",
-            style: TextStyle(color: Colors.black),
+            // style: TextStyle(color: Colors.black),
           ),
-          backgroundColor: Colors.white,
-          shadowColor: Colors.transparent,
+          // backgroundColor: Colors.white,
+          // shadowColor: Colors.transparent,
         ),
         body: Container(
+          alignment: Alignment.center,
           padding: EdgeInsets.symmetric(horizontal: 12),
           margin: EdgeInsets.symmetric(vertical: 8),
           child: ListView(
@@ -307,43 +310,43 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(
                 height: 20,
               ),
-              TextField(
+              TextFormField(
                 controller: FieldRegisterController.NamaController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.grey.shade200,
-                  border: InputBorder.none,
-                  hintText: "Nama",
-                  // labelText: "Nama",
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(16)),
+                  hintText: 'Nama',
                 ),
               ),
               SizedBox(
                 height: 8,
               ),
-              TextField(
+              TextFormField(
                 controller: FieldRegisterController.EmailController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.grey.shade200,
-                  border: InputBorder.none,
-                  hintText: "Email",
-                  // labelText: "Email",
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(16)),
+                  hintText: 'Email',
                 ),
               ),
               SizedBox(
                 height: 8,
               ),
-              SizedBox(
-                width: 250,
-                height: 60,
-                child: TextField(
-                  controller: FieldRegisterController.HobiController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                    border: InputBorder.none,
-                    hintText: "Hobi",
-                  ),
+              TextFormField(
+                controller: FieldRegisterController.HobiController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(16)),
+                  hintText: 'Hobi',
                 ),
               ),
               // SizedBox(
@@ -364,18 +367,16 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(
                 height: 8,
               ),
-              SizedBox(
-                width: 250,
-                height: 60,
-                child: TextField(
-                  controller: FieldRegisterController.PasswordOneController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                    border: InputBorder.none,
-                    hintText: "Kata Sandi",
-                  ),
+              TextFormField(
+                controller: FieldRegisterController.PasswordOneController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(16)),
+                  hintText: 'Kata Sandi',
                 ),
               ),
               // SizedBox(
@@ -423,7 +424,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.off(() => LoginPage());
+                      Get.back();
                     },
                     child: Text(
                       "Masuk",

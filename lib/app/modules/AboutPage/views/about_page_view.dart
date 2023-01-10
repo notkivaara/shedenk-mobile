@@ -16,12 +16,23 @@ class AboutPage extends StatefulWidget {
 }
 
 class _AboutPageState extends State<AboutPage> {
-  final List<String> list = [
-    'assets/img/about1.jpg',
-    'assets/img/about2.jpg',
-    'assets/img/about3.jpg',
-  ];
+  int _current = 0;
+  final CarouselController _controller = CarouselController();
 
+  List<Widget> myData = [
+    Image.asset(
+      'assets/img/about1.jpg',
+      fit: BoxFit.cover,
+    ),
+    Image.asset(
+      'assets/img/about2.jpg',
+      fit: BoxFit.cover,
+    ),
+    Image.asset(
+      'assets/img/about3.jpg',
+      fit: BoxFit.fill,
+    ),
+  ];
   Position baseposition = Position(
     longitude: 0,
     latitude: 0,
@@ -33,40 +44,88 @@ class _AboutPageState extends State<AboutPage> {
     speedAccuracy: 0,
   );
 
+  void sendMessage(context) {
+    var phone = '+6281333085303';
+    var message = '';
+    //   if (phone.length < 9) {
+    //     ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    //   } else {
+    //     _launchURL(phone, message);
+    //   }
+  }
+
+  void _launchURL(phone, message) async => await canLaunch(
+          'https://api.whatsapp.com/send?phone=$phone&text=$message')
+      ? await launch('https://api.whatsapp.com/send?phone=$phone&text=$message')
+      : throw 'Could not launch WhatsApp';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Tentang Toko',
-          style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white,
-        shadowColor: Colors.transparent,
       ),
       body: ListView(
         children: [
-          Container(
-              color: Colors.amber,
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  height: 250,
-                  autoPlay: true,
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: CarouselSlider(
+                  items: myData,
+                  carouselController: _controller,
+                  options: CarouselOptions(
+                      autoPlayInterval: Duration(seconds: 4),
+                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      autoPlay: true,
+                      disableCenter: true,
+                      viewportFraction: 1,
+                      enlargeCenterPage: false,
+                      aspectRatio: 2,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _current = index;
+                        });
+                      }),
                 ),
-                items: list.map((i) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Image.asset(
-                          i,
-                          fit: BoxFit.cover,
-                        ),
+              ),
+              Container(
+                // color: Colors.amber,
+                height: 40,
+                width: 14.0 * myData.length,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: myData.length,
+                    itemBuilder: (BuildContext context, index) {
+                      return Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _controller.animateToPage(index);
+                            },
+                            child: Container(
+                              // color: Colors.amber,
+                              height: 10,
+                              width: 10,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white
+                                    .withOpacity(_current == index ? 0.9 : 0.4),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 4,
+                          )
+                        ],
                       );
-                    },
-                  );
-                }).toList(),
-              )),
+                    }),
+              )
+            ],
+          ),
           Padding(
             padding: const EdgeInsets.all(10),
             child: Column(

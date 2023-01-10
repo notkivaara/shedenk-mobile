@@ -51,10 +51,10 @@ class _ProfilePageState extends State<ProfilePage> {
             appBar: AppBar(
               title: Text(
                 "Profile",
-                style: TextStyle(color: Colors.black),
+                // style: TextStyle(color: Colors.black),
               ),
-              backgroundColor: Colors.white,
-              shadowColor: Colors.transparent,
+              // backgroundColor: Colors.white,
+              // shadowColor: Colors.transparent,
             ),
             body: Padding(
               padding: const EdgeInsets.all(10),

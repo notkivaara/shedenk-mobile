@@ -6,10 +6,12 @@ import 'package:shedenk_mobile/app/modules/CartPage/views/cart_page_view.dart';
 import 'package:shedenk_mobile/models/product.dart';
 import 'package:shedenk_mobile/models/produktest.dart';
 import 'package:shedenk_mobile/screens/home/components/top_navbar2.dart';
+import 'package:shedenk_mobile/screens/home/home_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../home/components/body.dart';
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:get/get.dart';
 import 'package:get/get.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -51,7 +53,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     List<Widget> image = [];
     for (int i = 0; i <= widget.list!.length - 1; i++) {
       image.add(Image.network(
-          "http://shedenk.wstif3d.id//upload/${widget.list![i]}",
+          "http://shedenk.wstif3d.id/upload/${widget.list![i]}",
           fit: BoxFit.cover));
       imageData = image;
     }
@@ -110,8 +112,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
   );
 
   void sendMessage(context) {
-    var phone = '+6285156262237';
-    var message = '' +
+    var phone = '+6281333085303';
+    var message = 'Saya ingin memesan: ' +
         '\n' +
         'Id: ' +
         '${widget.id}' +
@@ -217,6 +219,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ),
                       onPressed: () {
                         sendMessage(context);
+                        Get.off(() => MainPage());
                       },
                       child: Text("Lanjutkan"),
                     ),
@@ -228,10 +231,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ],
         ),
       ),
-      appBar: PreferredSize(
-        child: TopNavBar2(),
-        preferredSize: Size.fromHeight(50),
+      appBar: AppBar(
+        title: Text("Detail Produk"),
       ),
+      // PreferredSize(
+      //   child: TopNavBar2(),
+      //   preferredSize: Size.fromHeight(50),
+      // ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
